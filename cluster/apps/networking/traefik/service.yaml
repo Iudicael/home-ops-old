@@ -9,7 +9,7 @@ items:
   - apiVersion: v1
     kind: Service
     metadata:
-      name: traefik
+      name: traefik-v4
       namespace: networking
       labels:
         app.kubernetes.io/name: traefik
