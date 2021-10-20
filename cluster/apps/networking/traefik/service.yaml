@@ -1,0 +1,78 @@
+---
+# Source: traefik/templates/service.yaml
+apiVersion: v1
+kind: List
+metadata:
+  name: traefik
+  namespace: networking
+items:
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: traefik
+      namespace: networking
+      labels:
+        app.kubernetes.io/name: traefik
+      annotations:
+    spec:
+      type: LoadBalancer
+      externalTrafficPolicy: Local
+      ipFamilies:
+        - IPv4
+      ipFamilyPolicy: SingleStack
+      loadBalancerIP: "${METALLB_TRAEFIK_IPV4_ADDR}"
+      selector:
+        app.kubernetes.io/name: traefik
+        app.kubernetes.io/instance: traefik
+      ports:
+      - port: 8082
+        name: metrics
+        targetPort: "metrics"
+        protocol: "TCP"
+      - port: 9000
+        name: traefik
+        targetPort: "traefik"
+        protocol: "TCP"
+      - port: 80
+        name: web
+        targetPort: "web"
+        protocol: "TCP"
+      - port: 443
+        name: websecure
+        targetPort: "websecure"
+        protocol: "TCP"
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: traefik-v6
+      namespace: networking
+      labels:
+        app.kubernetes.io/name: traefik
+      annotations:
+    spec:
+      type: LoadBalancer
+      externalTrafficPolicy: Local
+      ipFamilies:
+        - IPv6
+      ipFamilyPolicy: SingleStack 
+      loadBalancerIP: "${METALLB_TRAEFIK_IPV6_ADDR}"
+      selector:
+        app.kubernetes.io/name: traefik
+        app.kubernetes.io/instance: traefik
+      ports:
+      - port: 8082
+        name: metrics
+        targetPort: "metrics"
+        protocol: "TCP"
+      - port: 9000
+        name: traefik
+        targetPort: "traefik"
+        protocol: "TCP"
+      - port: 80
+        name: web
+        targetPort: "web"
+        protocol: "TCP"
+      - port: 443
+        name: websecure
+        targetPort: "websecure"
+        protocol: "TCP"

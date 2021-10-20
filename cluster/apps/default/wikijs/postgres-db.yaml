@@ -1,0 +1,22 @@
+---
+apiVersion: kubegres.reactive-tech.io/v1
+kind: Kubegres
+metadata:
+  name: wikijs-postgres
+  namespace: default
+spec:
+  replicas: 1
+  image: postgres:14.0
+  database:
+    size: 500Mi
+    storageClassName: openebs-jiva-csi-default
+  customConfig: wikijs-postgres-conf
+  env:
+    - name: POSTGRES_PASSWORD
+      value: "${SECRET_WIKIJS_POSTGRES_PASSWORD}"
+    - name: POSTGRES_REPLICATION_PASSWORD
+      value: "${SECRET_WIKIJS_POSTGRES_PASSWORD}"
+    - name: PGDATA
+      value: "/var/lib/postgresql/data/pgdata"
+    - name: POSTGRES_MY_DB_PASSWORD
+      value: "${SECRET_WIKIJS_POSTGRES_PASSWORD}"
