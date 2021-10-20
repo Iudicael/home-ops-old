@@ -13,6 +13,7 @@ items:
       namespace: networking
       labels:
         app.kubernetes.io/name: traefik
+        app.kubernetes.io/instance: traefik
       annotations:
     spec:
       type: LoadBalancer
@@ -48,6 +49,7 @@ items:
       namespace: networking
       labels:
         app.kubernetes.io/name: traefik
+        app.kubernetes.io/instance: traefik
       annotations:
     spec:
       type: LoadBalancer
