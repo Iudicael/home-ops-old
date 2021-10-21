@@ -44,7 +44,8 @@ spec:
       username: ${SECRET_NEXTCLOUD_ADMIN_USER}
       password: ${SECRET_NEXTCLOUD_ADMIN_PASSWORD}
       extraEnv:
-        TZ: "${CONFIG_TZ}"
+        - name: TZ 
+          value: "${CONFIG_TZ}"
       phpConfigs:
         uploadLimit.ini: |
           upload_max_filesize = 16G
