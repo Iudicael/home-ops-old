@@ -26,7 +26,14 @@ spec:
       kind: Deployment
       replicas: 1
     service:
-      enabled: false
+      enabled: true
+      type: LoadBalancer
+      spec:
+        ipFamilies:
+          - IPv4
+        ipFamilyPolicy: SingleStack 
+        loadBalancerIP: "${METALLB_TRAEFIK_IPV4_ADDR}"
+        externalTrafficPolicy: Local
     logs:
       general:
         format: json
