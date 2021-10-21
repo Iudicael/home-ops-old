@@ -32,7 +32,8 @@ spec:
         ipFamilies:
           - IPv4
         ipFamilyPolicy: SingleStack 
-        loadBalancerIP: "${METALLB_TRAEFIK_IPV4_ADDR}"
+        externalIPs: 
+        - "${METALLB_TRAEFIK_IPV4_ADDR}"
         externalTrafficPolicy: Local
     logs:
       general:

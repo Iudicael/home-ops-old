@@ -14,7 +14,8 @@ spec:
   ipFamilies:
     - IPv6
   ipFamilyPolicy: SingleStack 
-  loadBalancerIP: "${METALLB_TRAEFIK_IPV6_ADDR}"
+  externalIPs: 
+  - "${METALLB_TRAEFIK_IPV6_ADDR}"
   selector:
     app.kubernetes.io/name: traefik
     app.kubernetes.io/instance: traefik
