@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - collab
   - default
+  - home
   - kube-system
   - networking
   - security
