@@ -1,4 +1,4 @@
-  
+
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -8,9 +8,6 @@ metadata:
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
     traefik.ingress.kubernetes.io/router.middlewares: "networking-rfc1918@kubernetescrd"
-    hajimari.io/enable: "true"
-    hajimari.io/icon: "web"
-    hajimari.io/appName: "traefik"
 spec:
   tls:
     - hosts:

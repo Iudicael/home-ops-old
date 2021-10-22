@@ -16,7 +16,7 @@ tasks:
     cmds:
       - sudo curl --output /usr/local/bin/kubectl -L "https://storage.googleapis.com/kubernetes-release/release/{{.VERSION}}/bin/linux/amd64/kubectl"
     vars:
-      VERSION: 
+      VERSION:
          sh: curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt
 
   sops:
@@ -26,7 +26,7 @@ tasks:
     vars:
       LATEST_VERSION:
         sh: curl --silent "https://api.github.com/repos/mozilla/sops/releases/latest" | jq -r .tag_name
-  
+
   direnv:
     desc: Installing direnv
     cmds:

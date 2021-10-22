@@ -21,12 +21,12 @@ tasks:
     desc: Encrypt a file with sops
     cmds:
       - sops --encrypt --in-place {{.CLI_ARGS}}
-  
+
   decrypt:
     desc: Decrypt an file that was encrypted with sops
     cmds:
       - sops --decrypt --in-place {{.CLI_ARGS}}
-  
+
   genpw:
     desc: Generate random password
     cmds:

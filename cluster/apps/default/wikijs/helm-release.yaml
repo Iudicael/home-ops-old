@@ -20,7 +20,7 @@ spec:
     image:
       repository: ghcr.io/requarks/wiki
       tag: "2.5"
-    
+
     env:
       TZ: "Europe/Amsterdam"
       DB_TYPE: postgres
@@ -48,7 +48,7 @@ spec:
           - hosts:
               - "wiki.${SECRET_DOMAIN}"
             secretName: "${SECRET_DOMAIN/./-}-tls"
-    
+
     persistence:
       config:
         enabled: true

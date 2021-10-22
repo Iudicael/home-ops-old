@@ -26,6 +26,8 @@ spec:
       defaultEnable: false
       namespaceSelector:
         matchNames:
+          - collab
+          - default
           - home
           - monitoring
           - networking

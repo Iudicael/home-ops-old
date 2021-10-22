@@ -44,7 +44,7 @@ spec:
       username: ${SECRET_NEXTCLOUD_ADMIN_USER}
       password: ${SECRET_NEXTCLOUD_ADMIN_PASSWORD}
       extraEnv:
-        - name: TZ 
+        - name: TZ
           value: "${CONFIG_TZ}"
       phpConfigs:
         uploadLimit.ini: |
@@ -58,7 +58,7 @@ spec:
           $CONFIG = array (
             'overwrite.cli.url' => 'https://cloud.${SECRET_DOMAIN}',
             'overwriteprotocol' => 'https',
-            'trusted_proxies' => 
+            'trusted_proxies' =>
               array(
                 0 => '${NETWORK_K8S_CLUSTER_CIDR}',
                 1 => '${NETWORK_K8S_CLUSTER_IPV6_CIDR}',
