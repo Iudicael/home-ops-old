@@ -63,7 +63,8 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: monica-config
+        storageClassName: "openebs-jiva-csi-default"
+        size: 2Gi
 
     mariadb:
       enabled: true
@@ -75,4 +76,4 @@ spec:
       primary:
         persistence:
           enabled: true
-          existingClaim: monica-db
+          storageClassName: "openebs-jiva-csi-default"

@@ -3,5 +3,5 @@ kind: Kustomization
 resources:
   - freshrss
   - hajimari
-  #- monica
+  - monica
   - wikijs
