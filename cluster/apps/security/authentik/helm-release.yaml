@@ -54,8 +54,8 @@ spec:
 
       postgresql:
         host: "authentik-postgres"
-        name: "postgres"
-        user: "postgres"
+        name: "authentik"
+        user: "authentik"
         password: ${SECRET_AUTHENTIK_POSTGRES_PASSWORD}
       redis:
         host: '{{ .Release.Name }}-redis-master'

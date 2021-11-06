@@ -32,7 +32,7 @@ spec:
           - monitoring
           - networking
           - security
-      name: "david"
+      name: "David"
       groups:
         - name: Communicate
           links:

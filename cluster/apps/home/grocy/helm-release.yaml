@@ -47,6 +47,6 @@ spec:
     persistence:
       config:
         enabled: true
-        storageClass: "openebs-jiva-csi-default"
+        storageClass: "cstor-csi"
         accessMode: ReadWriteOnce
         size: 5Gi

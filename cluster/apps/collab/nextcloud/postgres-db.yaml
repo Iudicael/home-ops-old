@@ -9,7 +9,7 @@ spec:
   image: postgres:14.0
   database:
     size: 1Gi
-    storageClassName: openebs-jiva-csi-default
+    storageClassName: cstor-csi
   customConfig: nextcloud-postgres-conf
   env:
     - name: POSTGRES_PASSWORD

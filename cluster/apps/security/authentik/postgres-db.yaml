@@ -9,11 +9,21 @@ spec:
   image: postgres:14.0
   database:
     size: 500Mi
-    storageClassName: openebs-jiva-csi-default
+    storageClassName: cstor-csi
+  customConfig: authentik-postgres-conf
   env:
     - name: POSTGRES_PASSWORD
-      value: "${SECRET_AUTHENTIK_POSTGRES_PASSWORD}"
+      valueFrom:
+        secretKeyRef:
+          name: authentik-postgres-secret
+          key: superUserPassword
     - name: POSTGRES_REPLICATION_PASSWORD
-      value: "${SECRET_AUTHENTIK_POSTGRES_PASSWORD}"
-    - name: PGDATA
-      value: "/var/lib/postgresql/data/pgdata"
+      valueFrom:
+        secretKeyRef:
+          name: authentik-postgres-secret
+          key: replicationUserPassword
+    - name: POSTGRES_MY_DB_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: authentik-postgres-secret
+          key: myDbPasword
