@@ -20,10 +20,10 @@ spec:
     - name: POSTGRES_REPLICATION_PASSWORD
       valueFrom:
         secretKeyRef:
-          name: wikiijs-postgres-secret
+          name: wikijs-postgres-secret
           key: replicationUserPassword
     - name: POSTGRES_MY_DB_PASSWORD
       valueFrom:
         secretKeyRef:
-          name: wikiijs-postgres-secret
+          name: wikijs-postgres-secret
           key: myDbPasword
