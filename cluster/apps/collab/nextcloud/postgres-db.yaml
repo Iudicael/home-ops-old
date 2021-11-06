@@ -13,10 +13,17 @@ spec:
   customConfig: nextcloud-postgres-conf
   env:
     - name: POSTGRES_PASSWORD
-      value: "${SECRET_NEXTCLOUD_POSTGRES_PASSWORD}"
+      valueFrom:
+        secretKeyRef:
+          name: nextcloud-postgres-secret
+          key: superUserPassword
     - name: POSTGRES_REPLICATION_PASSWORD
-      value: "${SECRET_NEXTCLOUD_POSTGRES_PASSWORD}"
-    - name: PGDATA
-      value: "/var/lib/postgresql/data/pgdata"
+      valueFrom:
+        secretKeyRef:
+          name: nextcloud-postgres-secret
+          key: replicationUserPassword
     - name: POSTGRES_MY_DB_PASSWORD
-      value: "${SECRET_NEXTCLOUD_POSTGRES_PASSWORD}"
+      valueFrom:
+        secretKeyRef:
+          name: nextcloud-postgres-secret
+          key: myDbPasword
