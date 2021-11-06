@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: authentik-postgres-conf
-  namespace: collab
+  namespace: security
 
 data:
 
