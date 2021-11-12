@@ -6,8 +6,8 @@ metadata:
 spec:
   chain:
     middlewares:
-    - name: onlyoffice-headers
-    - name: onlyoffice-middleware
+      - name: onlyoffice-headers
+      - name: onlyoffice-middleware
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
@@ -24,9 +24,9 @@ spec:
     stsSeconds: 31536000
     # remove Server and X-Powered-By headers
     customResponseHeaders:
-      Server: ''
-      X-Powered-By: ''
-      X-Forwarded-Proto: 'https'
+      Server: ""
+      X-Powered-By: ""
+      X-Forwarded-Proto: "https"
     # add some sec headers
     featurePolicy: "vibrate 'self'; geolocation 'self'; midi 'self'; notifications 'self'; push 'self'; microphone 'none'; camera 'none'; magnetometer 'none'; gyroscope 'none'; speaker 'none'; vibrate 'self'; fullscreen 'self'"
 ---

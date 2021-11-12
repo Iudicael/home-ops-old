@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 tasks:
   flux:
@@ -17,12 +17,12 @@ tasks:
       - sudo curl --output /usr/local/bin/kubectl -L "https://storage.googleapis.com/kubernetes-release/release/{{.VERSION}}/bin/linux/amd64/kubectl"
     vars:
       VERSION:
-         sh: curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt
+        sh: curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt
 
   sops:
     desc: Installing sops
     cmds:
-      -  sudo curl -sSLf --output /usr/local/bin/sops https://github.com/mozilla/sops/releases/download/{{.LATEST_VERSION}}/sops-{{.LATEST_VERSION}}.linux
+      - sudo curl -sSLf --output /usr/local/bin/sops https://github.com/mozilla/sops/releases/download/{{.LATEST_VERSION}}/sops-{{.LATEST_VERSION}}.linux
     vars:
       LATEST_VERSION:
         sh: curl --silent "https://api.github.com/repos/mozilla/sops/releases/latest" | jq -r .tag_name

@@ -4,10 +4,10 @@ apiVersion: storage.k8s.io/v1
 metadata:
   name: cstor-csi
   annotations:
-    storageclass.kubernetes.io/is-default-class: 'true'
+    storageclass.kubernetes.io/is-default-class: "true"
 provisioner: cstor.csi.openebs.io
 allowVolumeExpansion: true
 parameters:
   cas-type: cstor
   cstorPoolCluster: cstor-storage
-  replicaCount: '1'
+  replicaCount: "1"

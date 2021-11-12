@@ -5,7 +5,6 @@ metadata:
   namespace: security
 
 data:
-
   primary_init_script.sh: |
     #!/bin/bash
     set -e

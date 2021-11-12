@@ -7,4 +7,4 @@ metadata:
 spec:
   chain:
     middlewares:
-    - name: security-ak-outpost-traefik@kubernetescrd
+      - name: security-ak-outpost-traefik@kubernetescrd

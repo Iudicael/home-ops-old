@@ -1,8 +1,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: nextcloud-postgres-conf
-  namespace: collab
+  name: vaultwarden-postgres-conf
+  namespace: security
 
 data:
   primary_init_script.sh: |
@@ -15,8 +15,8 @@ data:
     dt=$(date '+%d/%m/%Y %H:%M:%S');
     echo "$dt - Running init script the 1st time Primary PostgreSql container is created...";
 
-    customDatabaseName="nextcloud"
-    customUserName="nextcloud"
+    customDatabaseName="vaultwarden"
+    customUserName="vaultwarden"
 
     echo "$dt - Running: psql -v ON_ERROR_STOP=1 --username $POSTGRES_USER --dbname $POSTGRES_DB ...";
 

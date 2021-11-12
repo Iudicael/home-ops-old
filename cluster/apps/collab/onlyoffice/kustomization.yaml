@@ -7,4 +7,3 @@ resources:
   - ingressroute.yaml
   - middleware.yaml
   - secret.sops.yaml
-  

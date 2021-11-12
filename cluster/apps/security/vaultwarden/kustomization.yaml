@@ -4,3 +4,6 @@ resources:
   - config-pvc.yaml
   - helm-release.yaml
   - secret.sops.yaml
+  - postgres-configmap.yaml
+  - postgres-secret.yaml
+  - postgres-db.yaml

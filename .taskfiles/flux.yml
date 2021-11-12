@@ -7,7 +7,7 @@ tasks:
     cmds:
       - flux reconcile source git flux-system
     silent: true
-  
+
   bootstrap:
     desc: bootstrap flux
     cmds:

@@ -13,26 +13,26 @@ spec:
   externalTrafficPolicy: Local
   ipFamilies:
     - IPv6
-  ipFamilyPolicy: SingleStack 
-  externalIPs: 
-  - "${METALLB_TRAEFIK_IPV6_ADDR}"
+  ipFamilyPolicy: SingleStack
+  externalIPs:
+    - "${METALLB_TRAEFIK_IPV6_ADDR}"
   selector:
     app.kubernetes.io/name: traefik
     app.kubernetes.io/instance: traefik
   ports:
-  - port: 8082
-    name: metrics
-    targetPort: "metrics"
-    protocol: "TCP"
-  - port: 9000
-    name: traefik
-    targetPort: "traefik"
-    protocol: "TCP"
-  - port: 80
-    name: web
-    targetPort: "web"
-    protocol: "TCP"
-  - port: 443
-    name: websecure
-    targetPort: "websecure"
-    protocol: "TCP"
+    - port: 8082
+      name: metrics
+      targetPort: "metrics"
+      protocol: "TCP"
+    - port: 9000
+      name: traefik
+      targetPort: "traefik"
+      protocol: "TCP"
+    - port: 80
+      name: web
+      targetPort: "web"
+      protocol: "TCP"
+    - port: 443
+      name: websecure
+      targetPort: "websecure"
+      protocol: "TCP"
