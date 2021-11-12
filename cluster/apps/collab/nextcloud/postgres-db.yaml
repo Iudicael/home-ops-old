@@ -6,7 +6,7 @@ metadata:
   namespace: collab
 spec:
   replicas: 1
-  image: postgres:14.0
+  image: postgres:14.1
   database:
     size: 1Gi
     storageClassName: cstor-csi
