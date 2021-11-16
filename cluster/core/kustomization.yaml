@@ -5,5 +5,5 @@ resources:
   - metallb-system
   - cert-manager
   - kubegres-system
-  - openebs
+  - longhorn-system
   - system-upgrade

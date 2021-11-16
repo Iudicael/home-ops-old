@@ -28,7 +28,7 @@ spec:
     persistence:
       config:
         enabled: true
-        storageClass: "cstor-csi"
+        storageClass: "longhorn"
         accessMode: ReadWriteOnce
         size: 5Gi
 
