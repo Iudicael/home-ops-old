@@ -23,7 +23,10 @@ spec:
 
     persistence:
       enabled: true
-      existingClaim: nextcloud-data
+      existingClaim: nextcloud-main
+      nextcloudData:
+        enabled: true
+        existingClaim: nextcloud-data
 
     ingress:
       enabled: true

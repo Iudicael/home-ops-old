@@ -6,5 +6,6 @@ resources:
   - postgres-secret.yaml
   - postgres-db.yaml
   - data-pvc.yaml
+  - main-pvc.yaml
   - middleware.yaml
   - helm-release.yaml
