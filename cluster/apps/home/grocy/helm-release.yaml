@@ -24,6 +24,8 @@ spec:
 
     env:
       TZ: "${CONFIG_TZ}"
+      GROCY_CULTURE: "nl"
+      GROCY_CURRENCY: "EUR"
 
     ingress:
       main:
