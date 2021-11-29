@@ -1,0 +1,11 @@
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: plex
+  namespace: networking
+subsets:
+  - addresses:
+      - ip: 192.168.2.21
+    ports:
+      - port: 32400
+        name: web

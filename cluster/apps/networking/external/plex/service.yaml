@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: plex
+  namespace: networking
+spec:
+  ports:
+    - name: web
+      protocol: TCP
+      port: 32400
+      targetPort: 32400
