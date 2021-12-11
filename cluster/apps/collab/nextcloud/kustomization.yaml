@@ -8,4 +8,4 @@ resources:
   - data-pvc.yaml
   - main-pvc.yaml
   - middleware.yaml
-  - helm-release.yaml
+  #- helm-release.yaml
