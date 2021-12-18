@@ -15,7 +15,7 @@ resources:
   - metrics-server-charts.yaml
   - minecraft-server-charts.yaml
   - minio-charts.yaml
-  - mysql-operator-charts
+  - mysql-operator-charts.yaml
   - nextcloud-charts.yaml
   - nfs-subdir-external-provisioner-charts.yaml
   - node-feature-discovery-charts.yaml
