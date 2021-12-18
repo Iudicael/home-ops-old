@@ -5,5 +5,6 @@ resources:
   - metallb-system
   - cert-manager
   - kubegres-system
-  - longhorn-system
+  - mysql-operator
+  - rook-ceph
   - system-upgrade

@@ -4,9 +4,9 @@ resources:
   - cert-manager.yaml
   - collab.yaml
   - home.yaml
-  - longhorn.yaml
   - metallb-system.yaml
   - monitoring.yaml
+  - mysql-operator.yaml
   - networking.yaml
-  - openebs.yaml
+  - rook-ceph.yaml
   - security.yaml

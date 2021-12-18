@@ -11,11 +11,11 @@ resources:
   - infracloudio-charts.yaml
   - jetstack-charts.yaml
   - k8s-at-home-charts.yaml
-  - longhorn-charts.yaml
   - metallb-charts.yaml
   - metrics-server-charts.yaml
   - minecraft-server-charts.yaml
   - minio-charts.yaml
+  - mysql-operator-charts
   - nextcloud-charts.yaml
   - nfs-subdir-external-provisioner-charts.yaml
   - node-feature-discovery-charts.yaml

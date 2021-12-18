@@ -9,8 +9,8 @@ spec:
   chart:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
-      chart: freshrss
-      version: 6.1.0
+      chart: ghost
+      version: 1.0.0
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -18,19 +18,25 @@ spec:
       interval: 5m
   values:
     image:
-      repository: ghcr.io/linuxserver/freshrss
-      tag: version-1.18.1
+      repository: ghost
+      tag: 4.27.2
       pullPolicy: IfNotPresent
 
     env:
-      TZ: "${CONFIG_TZ}"
+      url: "https://blog.${SECRET_DOMAIN}"
+      database__client: mysql
+      database__connection__host: ghost-cluster-mysql-master
+      database__connection__user: ghost
+      database__connection__password: ghost
+      database__connection__database: ghost
+      NODE_ENV: production
 
     persistence:
-      config:
+      content:
         enabled: true
         storageClass: "ceph-block"
         accessMode: ReadWriteOnce
-        size: 5Gi
+        size: 1Gi
 
     ingress:
       main:
@@ -38,22 +44,15 @@ spec:
         ingressClassName: "traefik"
         annotations:
           hajimari.io/enable: "true"
-          hajimari.io/icon: "rss-box"
-          hajimari.io/appName: "FreshRSS"
+          hajimari.io/icon: "ghost"
+          hajimari.io/appName: "Ghost"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         hosts:
-          - host: "rss.${SECRET_DOMAIN}"
+          - host: "blog.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - secretName: "${SECRET_DOMAIN/./-}-tls"
             hosts:
-              - "rss.${SECRET_DOMAIN}"
-
-    resources:
-      requests:
-        cpu: 75m
-        memory: 64Mi
-      limits:
-        memory: 128Mi
+              - "blog.${SECRET_DOMAIN}"

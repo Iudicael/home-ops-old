@@ -40,7 +40,7 @@ spec:
       tls:
         - secretName: "${SECRET_DOMAIN/./-}-tls"
           hosts:
-            - cloud.${SECRET_DOMAIN}
+            - nextcloud.${SECRET_DOMAIN}
 
     nextcloud:
       host: cloud.${SECRET_DOMAIN}
@@ -59,7 +59,7 @@ spec:
         proxy.config.php: |-
           <?php
           $CONFIG = array (
-            'overwrite.cli.url' => 'https://cloud.${SECRET_DOMAIN}',
+            'overwrite.cli.url' => 'https://nextcloud.${SECRET_DOMAIN}',
             'overwriteprotocol' => 'https',
             'trusted_proxies' =>
               array(

@@ -1,0 +1,70 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: mysql-operator
+  namespace: mysql-operator
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://helm-charts.bitpoke.io
+      chart: mysql-operator
+      version: v0.5.3
+      sourceRef:
+        kind: HelmRepository
+        name: mysql-operator-charts
+        namespace: flux-system
+  values:
+    replicas: 1
+    image: docker.io/bitpoke/mysql-operator:latest
+    sidecarImage: docker.io/bitpoke/mysql-operator-sidecar-5.7:latest
+    sidecarMysql8Image: docker.io/bitpoke/mysql-operator-sidecar-8.0:latest
+    imagePullPolicy: IfNotPresent
+    installCRDs: true
+    watchNamespace:
+    serviceMonitor:
+      enabled: true
+      ## Additional labels for the serviceMonitor. Useful if you have multiple prometheus operators running to select only specific ServiceMonitors
+      # additionalLabels:
+      #   prometheus: prom-internal
+      interval: 10s
+      scrapeTimeout: 3s
+      # jobLabel:
+      # targetLabels:
+      # podTargetLabels:
+      namespaceSelector:
+        any: true
+      selector:
+        matchLabels:
+          app.kubernetes.io/managed-by: mysql.presslabs.org
+          app.kubernetes.io/name: mysql
+    rbac:
+      create: true
+      # if rbac is false this service account is used
+      serviceAccountName: default
+    orchestrator:
+      image: docker.io/bitpoke/mysql-operator-orchestrator:latest
+      secretName: mysql-operator-orc-secret
+      service:
+        type: ClusterIP
+        port: 80
+      ingress:
+        enabled: false
+      persistence:
+        enabled: true
+        storageClass: "ceph-block"
+        accessMode: "ReadWriteOnce"
+        size: 1Gi
+        fsGroupWorkaroundEnabled: false
+      config:
+        Debug: false
+        DiscoverByShowSlaveHosts: false
+        UnseenInstanceForgetHours: 1
+        InstancePollSeconds: 5
+        HostnameResolveMethod: "none"
+        MySQLHostnameResolveMethod: "@@report_host"
+        RemoveTextFromHostnameDisplay: ":3306"
+        DetectClusterAliasQuery: "SELECT CONCAT(SUBSTRING(@@hostname, 1, LENGTH(@@hostname) - 1 - LENGTH(SUBSTRING_INDEX(@@hostname,'-',-2))),'.',SUBSTRING_INDEX(@@report_host,'.',-1))"
+        DetectInstanceAliasQuery: "SELECT @@hostname"
+        SlaveLagQuery: "SELECT TIMESTAMPDIFF(SECOND,ts,UTC_TIMESTAMP()) as drift FROM sys_operator.heartbeat ORDER BY drift ASC LIMIT 1"
