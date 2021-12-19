@@ -60,6 +60,8 @@ spec:
           - name: "hydra"
             devices:
               - name: "sdb"
+      disruptionManagement:
+        managePodBudgets: true
     cephBlockPools:
       - name: ceph-blockpool
         spec:
