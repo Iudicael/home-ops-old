@@ -43,7 +43,7 @@ spec:
             - nextcloud.${SECRET_DOMAIN}
 
     nextcloud:
-      host: cloud.${SECRET_DOMAIN}
+      host: nextcloud.${SECRET_DOMAIN}
       username: ${SECRET_NEXTCLOUD_ADMIN_USER}
       password: ${SECRET_NEXTCLOUD_ADMIN_PASSWORD}
       extraEnv:
