@@ -5,6 +5,7 @@ resources:
   - default
   - home
   - kube-system
+  - media
   - networking
   - security
   - system-upgrade

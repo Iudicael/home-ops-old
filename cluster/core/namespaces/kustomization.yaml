@@ -5,6 +5,7 @@ resources:
   - collab.yaml
   - home.yaml
   - metallb-system.yaml
+  - media.yaml
   - monitoring.yaml
   - networking.yaml
   - rook-ceph.yaml
