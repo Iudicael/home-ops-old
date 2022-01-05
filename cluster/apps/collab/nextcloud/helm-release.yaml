@@ -20,14 +20,7 @@ spec:
     image:
       repository: nextcloud
       tag: "23.0.0"
-
-    persistence:
-      enabled: true
-      existingClaim: nextcloud-main
-      nextcloudData:
-        enabled: true
-        existingClaim: nextcloud-data
-
+    replicaCount: 1
     ingress:
       enabled: true
       className: "traefik"
@@ -41,38 +34,33 @@ spec:
         - secretName: "${SECRET_DOMAIN/./-}-tls"
           hosts:
             - nextcloud.${SECRET_DOMAIN}
-
+    internalDatabase:
+      enabled: false
+    externalDatabase:
+      enabled: true
+      type: postgresql
+      host: nextcloud-postgres.collab.svc.cluster.local:5432
+      database: nextcloud
+      existingSecret:
+          enabled: true
+          secretName: nextcloud-secret
+          usernameKey: db_username
+          passwordKey: db_password
+    mariadb:
+      enabled: false
+    postgresql:
+      enabled: false
     nextcloud:
       host: nextcloud.${SECRET_DOMAIN}
       username: ${SECRET_NEXTCLOUD_ADMIN_USER}
       password: ${SECRET_NEXTCLOUD_ADMIN_PASSWORD}
-      extraEnv:
-        - name: TZ
-          value: "${CONFIG_TZ}"
-      phpConfigs:
-        uploadLimit.ini: |
-          upload_max_filesize = 16G
-          post_max_size = 16G
-          max_input_time = 3600
-          max_execution_time = 3600
-      configs:
-        proxy.config.php: |-
-          <?php
-          $CONFIG = array (
-            'overwrite.cli.url' => 'https://nextcloud.${SECRET_DOMAIN}',
-            'overwriteprotocol' => 'https',
-            'trusted_proxies' =>
-              array(
-                0 => '${NETWORK_K8S_CLUSTER_CIDR}',
-                1 => '${NETWORK_K8S_CLUSTER_IPV6_CIDR}',
-              )
-          );
-        phone_region.config.php: |-
-          <?php
-          $CONFIG = array (
-            'default_phone_region' => 'NL',
-            'defaultapp' => 'files'
-          );
+      existingSecret:
+        enabled: false
+        secretName: nextcloud-secret
+        usernameKey: username
+        passwordKey: password
+        smtpUsernameKey: smtp_username
+        smtpPasswordKey: smtp_password
       mail:
         enabled: true
         fromAddress: no-reply
@@ -82,24 +70,85 @@ spec:
           secure: tls
           authtype: LOGIN
           port: 587
-          name: ${SECRET_SMTP_USERNAME}
-          password: ${SECRET_SMTP_PASSWORD}
-
-    internalDatabase:
-      enabled: false
-
-    externalDatabase:
-      enabled: true
-      type: postgresql
-      host: nextcloud-postgres.collab.svc.cluster.local:5432
-      user: nextcloud
-      password: ${SECRET_NEXTCLOUD_POSTGRES_PASSWORD}
-      database: nextcloud
-
-    cronjob:
-      enabled: true
-
+      phpConfigs:
+        uploadLimit.ini: |
+          upload_max_filesize = 16G
+          post_max_size = 16G
+          max_input_time = 3600
+          max_execution_time = 36
+      defaultConfigs:
+        .htaccess: true
+        apache-pretty-urls.config.php: true
+        apcu.config.php: true
+        apps.config.php: true
+        autoconfig.php: false
+        redis.config.php: false
+        smtp.config.php: true
+      configs:
+        custom.config.php: |-
+          <?php
+          $CONFIG = array (
+            'overwrite.cli.url' => 'https://nextcloud.${SECRET_DOMAIN}',
+            'overwriteprotocol' => 'https',
+            'filelocking.enabled' => 'true',
+            'loglevel' => '2',
+            'trusted_proxies' =>
+              array(
+                0 => '${NETWORK_K8S_CLUSTER_CIDR}',
+                1 => '${NETWORK_K8S_CLUSTER_IPV6_CIDR}',
+              )
+          );
+        redis.config.php: |-
+          <?php
+          $CONFIG = array (
+            'memcache.local' => '\\OC\\Memcache\\Redis',
+            'memcache.distributed' => '\OC\Memcache\Redis',
+            'memcache.locking' => '\OC\Memcache\Redis',
+            'redis' => array(
+              'host' => getenv('REDIS_HOST'),
+              'port' => getenv('REDIS_HOST_PORT') ?: 6379,
+              'password' => getenv('REDIS_HOST_PASSWORD')
+            )
+          );
+        phone_region.config.php: |-
+          <?php
+          $CONFIG = array (
+            'default_phone_region' => 'NL',
+            'defaultapp' => 'files'
+          );
+      extraEnv:
+        - name: TZ
+          value: "${CONFIG_TZ}"
     redis:
       enabled: true
       usePassword: true
       password: ${SECRET_NEXTCLOUD_REDIS_PASSWORD}
+    cronjob:
+      annotations: {}
+      curlInsecure: false
+      enabled: true
+      failedJobsHistoryLimit: 5
+      image: {}
+      schedule: '*/5 * * * *'
+      successfulJobsHistoryLimit: 2
+    persistence:
+      enabled: true
+      existingClaim: nextcloud-main
+      nextcloudData:
+        enabled: true
+        existingClaim: nextcloud-data
+    metrics:
+      enabled: true
+      https: false
+      image:
+        pullPolicy: IfNotPresent
+        repository: xperimental/nextcloud-exporter
+        tag: v0.4.0
+      replicaCount: 1
+      service:
+        annotations:
+          prometheus.io/port: '9205'
+          prometheus.io/scrape: 'true'
+        labels: {}
+        type: ClusterIP
+      timeout: 5s

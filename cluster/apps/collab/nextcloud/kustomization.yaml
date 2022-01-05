@@ -5,6 +5,7 @@ resources:
   - postgres-configmap.yaml
   - postgres-secret.yaml
   - postgres-db.yaml
+  - secret.sops.yaml
   - data-pvc.yaml
   - main-pvc.yaml
   - middleware.yaml
