@@ -2,7 +2,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
-  name: mysql-operator-charts
+  name: bitpoke-charts
   namespace: flux-system
 spec:
   interval: 15m
