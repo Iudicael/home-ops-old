@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - cert-manager.yaml
   - collab.yaml
+  - database.yaml
   - home.yaml
   - metallb-system.yaml
   - media.yaml
