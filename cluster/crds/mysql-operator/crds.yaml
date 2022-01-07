@@ -9,7 +9,7 @@ spec:
   url: https://github.com/bitpoke/mysql-operator.git
   ref:
     # renovate: registryUrl=https://helm-charts.bitpoke.io chart=mysql-operator
-    tag: v0.5.3
+    tag: v0.6.1
   ignore: |
     # exclude all
     /*
