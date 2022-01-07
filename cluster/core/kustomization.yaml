@@ -4,6 +4,7 @@ resources:
   - namespaces
   - metallb-system
   - cert-manager
+  - database
   - kubegres-system
   - rook-ceph
   - system-upgrade
