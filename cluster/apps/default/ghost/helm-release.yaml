@@ -25,7 +25,7 @@ spec:
     env:
       url: "https://blog.${SECRET_DOMAIN}"
       database__client: mysql
-      database__connection__host: ghost-cluster-mysql-master
+      database__connection__host: ghost-cluster-mysql-master.default.svc.cluster.local
       database__connection__user: ghost
       database__connection__password: ghost
       database__connection__database: ghost
