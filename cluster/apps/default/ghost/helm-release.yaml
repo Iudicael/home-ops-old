@@ -27,7 +27,7 @@ spec:
       database__client: mysql
       database__connection__host: ghost-cluster-mysql-master.default.svc.cluster.local
       database__connection__user: ghost
-      database__connection__password: ghost
+      database__connection__password: ${SECRET_GHOST_MYSQL_PASSWORD}
       database__connection__database: ghost
       NODE_ENV: production
 

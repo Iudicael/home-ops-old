@@ -1,7 +1,8 @@
 apiVersion: mysql.presslabs.org/v1alpha1
 kind: MysqlCluster
 metadata:
-  name: my-cluster
+  name: ghost-cluster-mysql
+  namespace: default
 spec:
   replicas: 1
   secretName: mysql-ghost-secret
