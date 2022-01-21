@@ -11,4 +11,4 @@ tasks:
   bootstrap:
     desc: bootstrap flux
     cmds:
-      - kubectl --kubeconfig=./kubeconfig apply --kustomize=./cluster/base/flux-system
+      - kubectl --kubeconfig=./cluster/kubeconfig apply --kustomize=./cluster/base/flux-system
