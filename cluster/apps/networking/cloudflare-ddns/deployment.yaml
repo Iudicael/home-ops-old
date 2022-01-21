@@ -23,7 +23,7 @@ spec:
             - name: TZ
               value: "${CONFIG_TZ}"
             - name: DETECTION_MODE
-              value: "curl-icanhazip.com"
+              value: "dig-whoami.cloudflare"
             - name: CF_APITOKEN
               valueFrom:
                 secretKeyRef:

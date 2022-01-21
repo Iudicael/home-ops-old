@@ -1,0 +1,37 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: purelb
+  namespace: purelb
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://gitlab.com/api/v4/projects/20400619/packages/helm/stable
+      chart: purelb
+      version: 0.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: purelb-charts
+        namespace: flux-system
+  values:
+    image:
+      repository: registry.gitlab.com/purelb/purelb
+      pullPolicy: Always
+      tag: v0.5.0
+    serviceGroup:
+      name: "default"
+      create: true
+      spec:
+        local:
+          v4pool:
+            subnet: '${PURELB_IPV4_SUBNET}'
+            pool: '${PURELB_IPV4_RANGE}'
+            aggregation: default
+          v6pool:
+            subnet: '${HOME_IPV6_RANGE}'
+            pool: '${PURELB_IPV6_RANGE}'
+            aggregation: default
+    defaultAnnouncer: "PureLB"
+    memberlistSecretKey: "${PURELB_MEMBERLIST_SECRET_KEY}"

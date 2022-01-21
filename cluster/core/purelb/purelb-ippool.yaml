@@ -1,0 +1,16 @@
+---
+apiVersion: crd.projectcalico.org/v1
+kind: IPPool
+metadata:
+  name: purelb-ipv4
+spec:
+  cidr: ${PURELB_IPV4_SUBNET}
+  disabled: true
+---
+apiVersion: crd.projectcalico.org/v1
+kind: IPPool
+metadata:
+  name: purelb-ipv6
+spec:
+  cidr: ${HOME_IPV6_RANGE}
+  disabled: true

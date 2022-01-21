@@ -1,0 +1,27 @@
+---
+version: "3"
+
+tasks:
+  apply:
+    desc: Apply a k0sctl configuration to bootstrap k0s cluster
+    cmds:
+      - k0sctl apply -c {{.K0S_DIR}}/k0sctl.yaml
+  
+  bootstrap:
+    - task: apply
+    - task: kubeconfig
+
+  init:
+    desc: Create a configuration template
+    cmds:
+      - k0sctl init --cluster-name home-cluster --k0s > {{.K0S_DIR}}/k0sctl.yaml
+
+  kubeconfig: 
+    desc: Get kubeconfig from cluster
+    cmds:
+      - k0sctl kubeconfig -c {{.K0S_DIR}}/k0sctl.yaml > {{.CLUSTER_DIR}}/kubeconfig
+
+  reset:
+    desc: Uninstall k0s from the hosts listed in the configuration
+    cmds:
+      - k0sctl reset -c {{.K0S_DIR}}/k0sctl.yaml

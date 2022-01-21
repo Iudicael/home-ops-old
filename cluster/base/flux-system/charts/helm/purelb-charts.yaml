@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
-  name: metallb-charts
+  name: purelb-charts
   namespace: flux-system
 spec:
   interval: 15m
-  url: https://metallb.github.io/metallb
+  url: https://gitlab.com/api/v4/projects/20400619/packages/helm/stable
   timeout: 3m

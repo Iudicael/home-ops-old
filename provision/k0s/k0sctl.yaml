@@ -1,0 +1,87 @@
+apiVersion: k0sctl.k0sproject.io/v1beta1
+kind: Cluster
+metadata:
+  name: home-cluster
+spec:
+  hosts:
+  - ssh:
+      address: 192.168.2.20
+      user: david
+      port: 22
+      keyPath: ~/.ssh/id_ed25519
+    role: controller+worker
+    installFlags:
+    - --disable-components metrics-server
+  k0s:
+    version: 1.23.1+k0s.1
+    config:
+      apiVersion: k0s.k0sproject.io/v1beta1
+      kind: Cluster
+      metadata:
+        name: k0s
+      spec:
+        api:
+          k0sApiPort: 9443
+          port: 6443
+          sans:
+            - k8s.velinga.home
+        images:
+          calico:
+            cni:
+              image: docker.io/calico/cni
+              version: v3.21.2
+            kubecontrollers:
+              image: docker.io/calico/kube-controllers
+              version: v3.21.2
+            node:
+              image: docker.io/calico/node
+              version: v3.21.2
+          coredns:
+            image: k8s.gcr.io/coredns/coredns
+            version: v1.7.0
+          default_pull_policy: IfNotPresent
+          konnectivity:
+            image: quay.io/k0sproject/apiserver-network-proxy-agent
+            version: 0.0.27-k0s1
+          kubeproxy:
+            image: k8s.gcr.io/kube-proxy
+            version: v1.23.1
+          kuberouter:
+            cni:
+              image: docker.io/cloudnativelabs/kube-router
+              version: v1.3.2
+            cniInstaller:
+              image: quay.io/k0sproject/cni-node
+              version: 0.1.0
+          metricsserver:
+            image: k8s.gcr.io/metrics-server/metrics-server
+            version: v0.5.2
+        installConfig:
+          users:
+            etcdUser: etcd
+            kineUser: kube-apiserver
+            konnectivityUser: konnectivity-server
+            kubeAPIserverUser: kube-apiserver
+            kubeSchedulerUser: kube-scheduler
+        konnectivity:
+          adminPort: 8133
+          agentPort: 8132
+        network:
+          podCIDR: 10.244.0.0/16
+          serviceCIDR: 10.96.0.0/12
+          provider: calico
+          calico:
+            mode: bird
+          dualStack:
+            enabled: true
+            IPv6podCIDR: fd24::/108
+            IPv6serviceCIDR: fd96::/108
+          kubeProxy:
+            disabled: false
+            mode: ipvs
+        podSecurityPolicy:
+          defaultPolicy: 00-k0s-privileged
+        storage:
+          type: etcd
+        telemetry:
+          enabled: false

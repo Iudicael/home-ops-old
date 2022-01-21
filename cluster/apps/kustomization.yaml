@@ -7,4 +7,3 @@ resources:
   - kube-system
   - networking
   - security
-  - system-upgrade

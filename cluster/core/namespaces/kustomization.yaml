@@ -5,7 +5,7 @@ resources:
   - collab.yaml
   - database.yaml
   - home.yaml
-  - metallb-system.yaml
+  - purelb.yaml
   - media.yaml
   - monitoring.yaml
   - networking.yaml

@@ -4,12 +4,11 @@
 .DS_Store
 Thumbs.db
 # k8s
-kubeconfig
+kubeconfig*
 # vscode-sops
 .decrypted~*.yaml
-.config.env
-# mdBook
-docs/
-# age
-age.agekey
-k3s-template.md
+*.agekey
+# Terraform
+.terraform
+.terraform.tfstate*
+terraform.tfstate*
