@@ -34,4 +34,3 @@ spec:
             pool: '${PURELB_IPV6_RANGE}'
             aggregation: default
     defaultAnnouncer: "PureLB"
-    memberlistSecretKey: "${PURELB_MEMBERLIST_SECRET_KEY}"
