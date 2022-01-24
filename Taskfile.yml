@@ -5,16 +5,16 @@ vars:
   PROJECT_DIR:
     sh: "git rev-parse --show-toplevel"
   CLUSTER_DIR: "{{.PROJECT_DIR}}/cluster"
-  K0S_DIR: "{{.PROJECT_DIR}}/provision/k0s"
+  ANSIBLE_DIR: "{{.PROJECT_DIR}}/provision/ansible"
   TERRAFORM_DIR: "{{.PROJECT_DIR}}/provision/terraform"
 
 env:
   KUBECONFIG: "{{.PROJECT_DIR}}/cluster/kubeconfig"
 
 includes:
+  ansible: .taskfiles/ansible.yml
   flux: .taskfiles/flux.yml
   format: .taskfiles/format.yml
-  k0s: .taskfiles/k0s.yml
   lint: .taskfiles/lint.yml
   pre-commit: .taskfiles/pre-commit.yml
   terraform: .taskfiles/terraform.yml
