@@ -21,7 +21,7 @@ k3s_server:
   disable-network-policy: true
   disable-cloud-controller: true
   write-kubeconfig-mode: "644"
-  cluster-cidr: "10.244.0.0/16,fd24::/48"
+  cluster-cidr: "10.244.0.0/16,fd24::/56"
   service-cidr: "10.96.0.0/16,fd96::/112"
   kubelet-arg:
     - "feature-gates=GracefulNodeShutdown=true"
@@ -30,25 +30,13 @@ k3s_server:
     - "feature-gates=ReadWriteOncePod=true"
     - "max-pods=200"
   kube-controller-manager-arg:
-    - "feature-gates=EphemeralContainers=true"
-    - "feature-gates=MixedProtocolLBService=true"
-    - "feature-gates=ReadWriteOncePod=true"
     - "bind-address=0.0.0.0"
   kube-proxy-arg:
-    - "feature-gates=EphemeralContainers=true"
-    - "feature-gates=MixedProtocolLBService=true"
-    - "feature-gates=ReadWriteOncePod=true"
     - "metrics-bind-address=0.0.0.0"
     - "proxy-mode=ipvs"
-    - "ipvs-strict-arp=true"
+    - "ipvs-strict-arp"
   kube-scheduler-arg:
-    - "feature-gates=EphemeralContainers=true"
-    - "feature-gates=MixedProtocolLBService=true"
-    - "feature-gates=ReadWriteOncePod=true"
     - "bind-address=0.0.0.0"
   etcd-expose-metrics: true
   kube-apiserver-arg:
-    - "feature-gates=EphemeralContainers=true"
-    - "feature-gates=MixedProtocolLBService=true"
-    - "feature-gates=ReadWriteOncePod=true"
     - "anonymous-auth=true"

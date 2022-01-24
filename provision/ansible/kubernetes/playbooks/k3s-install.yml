@@ -34,7 +34,7 @@
       ansible.builtin.command: "git rev-parse --show-toplevel"
       register: repo_abs_path
 
-    - name: Copy kubeconfig to provision folder
+    - name: Copy kubeconfig to cluster folder
       run_once: true
       ansible.builtin.fetch:
         src: "/etc/rancher/k3s/k3s.yaml"
