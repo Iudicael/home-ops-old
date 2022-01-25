@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: ghost
-      tag: 4.32.3
+      tag: 4.33.1
       pullPolicy: IfNotPresent
 
     env:
