@@ -39,7 +39,7 @@ spec:
         tag: v0.6.2
 
       topologyUser: orchestrator
-      topologyPassword:  ${SECRET_MYSQL_OPERATOR_PASSWORD}
+      topologyPassword: ${SECRET_MYSQL_OPERATOR_PASSWORD}
 
       persistence:
         enabled: true

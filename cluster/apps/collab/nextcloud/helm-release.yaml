@@ -44,10 +44,10 @@ spec:
       host: nextcloud-postgres.collab.svc.cluster.local:5432
       database: nextcloud
       existingSecret:
-          enabled: true
-          secretName: nextcloud-secret
-          usernameKey: db_username
-          passwordKey: db_password
+        enabled: true
+        secretName: nextcloud-secret
+        usernameKey: db_username
+        passwordKey: db_password
     mariadb:
       enabled: false
     postgresql:

@@ -17,7 +17,7 @@ resource "cloudflare_record" "apex_ipv4" {
   ttl     = 1
 }
 
-# 
+#
 resource "cloudflare_record" "apex_ipv6" {
   name    = "dyn"
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")

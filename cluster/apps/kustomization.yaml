@@ -6,4 +6,5 @@ resources:
   - home
   - kube-system
   - networking
+  - rook-ceph
   - security

@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -23,8 +24,8 @@ data:
     }
 
     map $http_x_forwarded_proto $the_scheme {
-         default $http_x_forwarded_proto;
-         "" $scheme;
+      default $http_x_forwarded_proto;
+      "" $scheme;
     }
 
     map $http_x_forwarded_host $the_host {
