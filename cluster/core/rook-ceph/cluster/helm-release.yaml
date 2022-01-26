@@ -42,11 +42,15 @@ spec:
       crashCollector:
         disable: false
       dataDirHostPath: /var/lib/rook
+      cephVersion:
+        image: quay.io/ceph/ceph:v16.2.7
+        allowUnsupported: true
       mon:
         count: 1
         allowMultiplePerNode: true
       mgr:
         count: 1
+        allowMultiplePerNode: true
       dashboard:
         enabled: true
         urlPrefix: /
@@ -60,6 +64,11 @@ spec:
           - name: "hydra"
             devices:
               - name: "sdb"
+      healthCheck:
+        daemonHealth:
+          mon:
+            interval: 45s
+            timeout: 600s
       disruptionManagement:
         managePodBudgets: true
     cephBlockPools:
