@@ -1,0 +1,26 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  metadata:
+  name: onlyoffice
+  namespace: collab
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+    traefik.ingress.kubernetes.io/router.middlewares: "collab-onlyoffice-full@kubernetescrd"
+spec:
+  tls:
+    - hosts:
+        - "office.${SECRET_DOMAIN}"
+      secretName: "${SECRET_DOMAIN/./-}-tls"
+  rules:
+    - host: "office.${SECRET_DOMAIN}"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: onlyoffice-documentserver
+                port:
+                  number: 80
