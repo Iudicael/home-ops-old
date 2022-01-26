@@ -19,10 +19,6 @@ spec:
   dependsOn:
     - name: cert-manager
       namespace: cert-manager
-  install:
-    crds: CreateReplace
-  upgrade:
-    crds: CreateReplace
   values:
     image:
       name: ghcr.io/k8s-at-home/traefik
