@@ -3,6 +3,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: authentik
+  namespace: networking
 spec:
   forwardAuth:
     address: https://auth.velinga.com/akprox/auth/traefik
