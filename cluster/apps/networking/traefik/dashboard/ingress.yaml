@@ -6,7 +6,7 @@ metadata:
   namespace: networking
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-    traefik.ingress.kubernetes.io/router.middlewares: "networking-forwardAuth@kubernetescrd"
+    traefik.ingress.kubernetes.io/router.middlewares: "networking-authentik@kubernetescrd"
 spec:
   tls:
     - hosts:
