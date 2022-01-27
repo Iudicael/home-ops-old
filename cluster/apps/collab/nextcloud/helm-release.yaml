@@ -57,7 +57,7 @@ spec:
       username: ${SECRET_NEXTCLOUD_ADMIN_USER}
       password: ${SECRET_NEXTCLOUD_ADMIN_PASSWORD}
       existingSecret:
-        enabled: false
+        enabled: true
         secretName: nextcloud-secret
         usernameKey: username
         passwordKey: password
