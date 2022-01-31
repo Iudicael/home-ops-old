@@ -14,11 +14,11 @@
     "github>Iudicael/home-ops//.github/renovate/autoMerge"
   ],
   "platform": "github",
-  "username": "Iudicael-bot[bot]",
+  "username": "iudicael-bot[bot]",
   "repositories": ["Iudicael/home-ops"],
   "onboarding": false,
   "requireConfig": false,
-  "gitAuthor": "Iudicael-bot <9055428+Iudicael[bot]@users.noreply.github.com>",
+  "gitAuthor": "iudicael-bot <9055428+iudicael-bot[bot]@users.noreply.github.com>",
   "timezone": "Europe/Amsterdam",
   "dependencyDashboardTitle": "Renovate Dashboard",
   "suppressNotifications": ["prIgnoreNotification"],
