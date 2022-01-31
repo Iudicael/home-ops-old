@@ -25,7 +25,7 @@ spec:
       enabled: true
       ingressClassName: "traefik"
       annotations:
-        external-dns.alpha.kubernetes.io/target: "dyn.${SECRET_PUBLIC_DOMAIN}"
+        external-dns.alpha.kubernetes.io/target: "dyn.${SECRET_DOMAIN}"
         external-dns/is-public: "true"
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
       hosts:
