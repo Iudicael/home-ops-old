@@ -11,7 +11,7 @@
     ":enablePreCommit",
     "github>Iudicael/home-ops//.github/renovate/labels",
     "github>Iudicael/home-ops//.github/renovate/semanticCommits",
-    "github>Iudicael/home-ops//.github/renovate/allowedVersions"
+    "github>Iudicael/home-ops//.github/renovate/autoMerge"
   ],
   "platform": "github",
   "username": "Iudicael-bot[bot]",
