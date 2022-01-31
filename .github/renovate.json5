@@ -18,7 +18,7 @@
   "repositories": ["Iudicael/home-ops"],
   "onboarding": false,
   "requireConfig": false,
-  "gitAuthor": "Iudicael-bot <9055428+Iudicael@users.noreply.github.com>",
+  "gitAuthor": "Iudicael-bot <9055428+Iudicael[bot]@users.noreply.github.com>",
   "timezone": "Europe/Amsterdam",
   "dependencyDashboardTitle": "Renovate Dashboard",
   "suppressNotifications": ["prIgnoreNotification"],
