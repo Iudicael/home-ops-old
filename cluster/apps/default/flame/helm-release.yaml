@@ -23,6 +23,7 @@ spec:
       tag: 2.2.1
     env:
       TZ: "${CONFIG_TZ}"
+      PASSWORD: "${SECRET_FLAME_PASSWORD}"
     service:
       main:
         ports:
