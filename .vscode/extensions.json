@@ -1,0 +1,14 @@
+{
+    "recommendations": [
+        "redhat.ansible",
+        "signageos.signageos-vscode-sops",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "britesnow.vscode-toggle-quotes",
+        "paulvarache.vscode-taskfile",
+        "redhat.vscode-yaml",
+        "oderwat.indent-rainbow",
+        "hashicorp.terraform",
+        "bierner.github-markdown-preview",
+        "mitchdenny.ecdc"
+    ]
+}

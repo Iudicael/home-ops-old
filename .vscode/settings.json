@@ -1,0 +1,26 @@
+{
+    "files.associations": {
+        "*.json5": "jsonc",
+        "**/provision/ansible/**/*.yml": "ansible",
+        "**/provision/ansible/**/*.sops.yml": "yaml",
+        "**/provision/ansible/**/inventory/**/*.yml": "yaml",
+        "**/provision/terraform/**/*.tf": "terraform"
+    },
+    "material-icon-theme.folders.associations": {
+        ".taskfiles": "utils",
+        "cluster": "kubernetes"
+    },
+    "prettier.configPath": ".github/lint/.prettierrc.yaml",
+    "prettier.ignorePath": ".github/lint/.prettierignore",
+    "yaml.schemas": {
+        "Kubernetes": "cluster/*.yaml",
+        "https://json.schemastore.org/taskfile.json": [
+            ".taskfiles/*",
+        ]
+    },
+    "editor.fontFamily": "'CaskaydiaCove NF','CaskaydiaCove Nerd Font'",
+    "editor.fontLigatures": true,
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs":"active",
+    "explorer.autoReveal": false
+}

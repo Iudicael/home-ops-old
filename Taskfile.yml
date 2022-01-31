@@ -33,4 +33,4 @@ tasks:
   pwgen:
     desc: Generate random password
     cmds:
-      - openssl rand -base64 {{.CLI_ARGS}}
+      - openssl rand -base64 32

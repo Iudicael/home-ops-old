@@ -2,13 +2,30 @@
 version: "3"
 
 tasks:
+  all:
+    desc: flux
+    cmds:
+      - flux get all
+
+  apply:
+    desc: apply flux to kubernetes
+    cmds:
+      - kubectl apply --kustomize=./cluster/base/flux-system
+
+  bootstrap:
+    desc: Bootstrap flux
+    cmds:
+      - task: prepare
+      - task: apply
+
+  prepare:
+    desc: prepare kubernetes for flux deployment
+    cmds:
+      - kubectl create namespace flux-system --dry-run=client -o yaml | kubectl apply -f -
+      - cat ~/.config/sops/age/keys.txt | kubectl -n flux-system create secret generic sops-age --from-file=age.agekey=/dev/stdin
+
   sync:
     desc: Sync flux-system with the Git Repository
     cmds:
       - flux reconcile source git flux-system
     silent: true
-
-  bootstrap:
-    desc: bootstrap flux
-    cmds:
-      - kubectl --kubeconfig=./cluster/kubeconfig apply --kustomize=./cluster/base/flux-system

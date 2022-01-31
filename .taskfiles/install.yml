@@ -1,6 +1,15 @@
 version: "3"
 
 tasks:
+  all:
+    desc: Install all tools
+    cmds:
+      - flux
+      - helm
+      - kubectl
+      - sops
+      - direnv
+
   flux:
     desc: Installing flux cli using the official script
     cmds:
