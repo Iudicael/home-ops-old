@@ -26,7 +26,7 @@ jobs:
           list-files: json
           filters: |
             yaml:
-              - added|modified: "**/helmrelease.yaml"
+              - added|modified: "**/helm-release.yaml"
     outputs:
       yaml_files: ${{ steps.filter.outputs.yaml_files }}
 
@@ -74,8 +74,8 @@ jobs:
         id: find-comment
         with:
           issue-number: "${{ github.event.pull_request.number }}"
-          comment-author: "Iudicael[bot]"
-          body-includes: helmrelease.yaml
+          comment-author: "iudicael-bot[bot]"
+          body-includes: helm-release.yaml
 
       - name: Create or update comment
         uses: peter-evans/create-or-update-comment@v1
