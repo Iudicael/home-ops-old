@@ -8,7 +8,6 @@ spec:
   interval: 5m
   chart:
     spec:
-      # renovate: registryUrl=https://gitlab.com/api/v4/projects/20400619/packages/helm/stable
       chart: purelb
       version: 0.5.0
       sourceRef:
