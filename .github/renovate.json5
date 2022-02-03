@@ -90,7 +90,18 @@
       ],
       "datasourceTemplate": "helm"
     },
-    // regexManager to read and process github-releases innthe ansible directory
+    // regexManager to read and process Kubegres github-releases
+    {
+      "fileMatch": [
+        "cluster/core/database/kubegres/.+\\.ya?ml$"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( registryUrl=(?<registryUrl>.*?))?( versioning=(?<versioning>.*=?))?\n *tag: (?<currentValue>.*=?)"
+      ],
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
+      "registryUrlTemplate": "{{#if registryUrl}}{{{registryUrl}}}{{else}}{{/if}}"
+    },
+    // regexManager to read and process github-releases in the ansible directory
     {
       "fileMatch": [
         "ansible/.+\\.ya?ml$"
