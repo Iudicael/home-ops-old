@@ -5,5 +5,4 @@ resources:
   - purelb
   - cert-manager
   - database
-  - kubegres-system
   - rook-ceph
