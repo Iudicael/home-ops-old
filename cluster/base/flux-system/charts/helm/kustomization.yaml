@@ -12,6 +12,7 @@ resources:
   - infracloudio-charts.yaml
   - jetstack-charts.yaml
   - k8s-at-home-charts.yaml
+  - metallb-charts.yaml
   - metrics-server-charts.yaml
   - minecraft-server-charts.yaml
   - minio-charts.yaml
@@ -19,7 +20,6 @@ resources:
   - nfs-subdir-external-provisioner-charts.yaml
   - node-feature-discovery-charts.yaml
   - prometheus-community-charts.yaml
-  - purelb-charts.yaml
   - rook-ceph-charts.yaml
   - stakater-charts.yaml
   - traefik-charts.yaml

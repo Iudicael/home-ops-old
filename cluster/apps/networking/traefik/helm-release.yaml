@@ -30,8 +30,8 @@ spec:
       spec:
         ipFamilyPolicy: PreferDualStack
         externalIPs:
-          - "${PURELB_TRAEFIK_IPV4_ADDR}"
-          - "${PURELB_TRAEFIK_IPV6_ADDR}"
+          - "${METALLB_TRAEFIK_IPV4_ADDR}"
+          - "${METALLB_TRAEFIK_IPV6_ADDR}"
         externalTrafficPolicy: Local
     logs:
       general:
@@ -56,8 +56,8 @@ spec:
       - "--metrics.prometheus=true"
       - "--metrics.prometheus.entryPoint=metrics"
     additionalArguments:
-      - "--providers.kubernetesingress.ingressendpoint.ip=${PURELB_TRAEFIK_IPV4_ADDR}"
-      - "--providers.kubernetesingress.ingressendpoint.ip=${PURELB_TRAEFIK_IPV6_ADDR}"
+      - "--providers.kubernetesingress.ingressendpoint.ip=${METALLB_TRAEFIK_IPV4_ADDR}"
+      - "--providers.kubernetesingress.ingressendpoint.ip=${METALLB_TRAEFIK_IPV6_ADDR}"
       - "--providers.kubernetesingress.allowexternalnameservices=true"
       - "--providers.kubernetescrd.allowexternalnameservices=true"
     ports:
