@@ -27,7 +27,7 @@ spec:
       containers:
         - name: documentserver
           # Registry location, container name and version
-          image: onlyoffice/documentserver:7.0.0.132
+          image: onlyoffice/documentserver:7.0.1.37
           imagePullPolicy: Always
           resources:
             # CPU & memory allocations
