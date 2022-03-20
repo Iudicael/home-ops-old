@@ -20,7 +20,7 @@ spec:
     fullnameOverride: error-pages
     image:
       repository: ghcr.io/tarampampam/error-pages
-      tag: 2.7.0
+      tag: 2.8.0
       pullPolicy: IfNotPresent
     env:
       TZ: "${CONFIG_TZ}"
