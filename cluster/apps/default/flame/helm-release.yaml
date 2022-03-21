@@ -20,7 +20,7 @@ spec:
     fullnameOverride: flame
     image:
       repository: docker.io/pawelmalak/flame
-      tag: 2.2.1
+      tag: 2.2.2
     env:
       TZ: "${CONFIG_TZ}"
       PASSWORD: "${SECRET_FLAME_PASSWORD}"
