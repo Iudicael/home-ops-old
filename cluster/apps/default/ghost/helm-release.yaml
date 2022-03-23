@@ -18,7 +18,7 @@ spec:
   values:
     image:
       repository: ghost
-      tag: 4.40.0
+      tag: 4.41.1
       pullPolicy: IfNotPresent
 
     env:
