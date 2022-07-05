@@ -1,17 +1,18 @@
 {
-  // General RenovateBot configuration
   "extends": [
-    ":enableRenovate",
     "config:base",
+    "docker:enableMajor",
     ":disableRateLimiting",
     ":dependencyDashboard",
     ":semanticCommits",
-    ":separatePatchReleases",
-    "docker:enableMajor",
     ":enablePreCommit",
-    "github>Iudicael/home-ops//.github/renovate/labels",
-    "github>Iudicael/home-ops//.github/renovate/semanticCommits",
-    "github>Iudicael/home-ops//.github/renovate/autoMerge"
+    ":automergeDigest",
+    ":automergeBranchPush",
+    "github>Iudicael/home-ops//.github/renovate/autoMerge.json5",
+    "github>Iudicael/home-ops//.github/renovate/commitMessage.json5",
+    "github>Iudicael/home-ops//.github/renovate/groups.json5",
+    "github>Iudicael/home-ops//.github/renovate/labels.json5",
+    "github>Iudicael/home-ops//.github/renovate/semanticCommits.json5"
   ],
   "platform": "github",
   "username": "iudicael-bot[bot]",
@@ -24,7 +25,6 @@
   "suppressNotifications": ["prIgnoreNotification"],
   "rebaseWhen": "conflicted",
   "commitBodyTable": true,
-  // set up ignored deps
   "ignoreDeps": [
     "ghcr.io/fluxcd/helm-controller",
     "ghcr.io/fluxcd/image-automation-controller",
@@ -34,115 +34,58 @@
     "ghcr.io/fluxcd/source-controller"
   ],
   "flux": {
-    "fileMatch": [
-      "cluster/.+\\.ya?ml$"
-    ]
+    "fileMatch": ["cluster/.+\\.ya?ml$"]
   },
   "helm-values": {
-    "fileMatch": [
-      "cluster/.+\\.ya?ml$"
-    ]
-  },
-  "helmv3": {
-    "fileMatch": [
-      "charts/.+/Chart\\.ya?ml$"
-    ]
+    "fileMatch": ["cluster/.+\\.ya?ml$"]
   },
   "kubernetes": {
     "fileMatch": [
-      "cluster/.+\\.ya?ml$"
+      "cluster/.+\\.ya?ml$",
+      "infrastructure/ansible/.+\\.ya?ml.j2$"
     ]
   },
   "regexManagers": [
-    // regexManager to read and process kube-prometheus-stack CRDs
     {
-      "fileMatch": [
-        "cluster/crds/kube-prometheus-stack/.+\\.ya?ml$"
-      ],
+      "description": "Process CRD dependencies",
+      "fileMatch": ["k8s/crds/.+\\.ya?ml$"],
       "matchStrings": [
-        "registryUrl=(?<registryUrl>.*?)\n *tag: (?<depName>[a-zA-Z-]+)-(?<currentValue>.*)\n"
+        // GitRepository where 'Git release/tag' matches 'Helm' version
+        "registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)\n",
+        // Kustomization where 'GitHub release artifact URL' matches 'Docker image' version
+        "datasource=(?<datasource>\\S+) image=(?<depName>\\S+)\n.*?-\\s(.*?)\/(?<currentValue>[^/]+)\/[^/]+\n"
       ],
-      "datasourceTemplate": "helm"
+      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}helm{{/if}}"
     },
-    // regexManager to read and process External DNS CRDs
     {
+      "description": "Process various dependencies",
       "fileMatch": [
-        "cluster/crds/external-dns/.+\\.ya?ml$"
+        "k8s/.+\\.ya?ml$"
       ],
       "matchStrings": [
-        "datasource=(?<datasource>.*?)\n *url: https:\/\/github\\.com\/(?<depName>.*?)\\.git\n *ref:\n *tag: (?<currentValue>.*)\n"
+        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?\"(?<currentValue>.*)\"\n"
       ],
-      "datasourceTemplate": "github-releases"
+      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
     },
-    // regexManager to read and process cert-manager CRD's
     {
-      "fileMatch": [
-        "cluster/crds/cert-manager/.+\\.ya?ml$"
-      ],
+      "description": "Process raw GitHub URLs",
+      "fileMatch": ["cluster/.+\\.ya?ml$"],
       "matchStrings": [
-        "registryUrl=(?<registryUrl>.*?) chart=(?<depName>.*?)\n.*\\/(?<currentValue>.*?)\\/"
+        "https:\\/\\/raw.githubusercontent.com\\/(?<depName>[\\w\\d\\-_]+\\/[\\w\\d\\-_]+)\\/(?<currentValue>[\\w\\d\\.\\-_]+)\\/.*"
       ],
-      "datasourceTemplate": "helm"
-    },
-        // regexManager to read and process Traefik CRD's
-    {
-      "fileMatch": [
-        "cluster/crds/traefik/.+\\.ya?ml$"
-      ],
-      "matchStrings": [
-        "registryUrl=(?<registryUrl>.*?) chart=(?<depName>.*?)\n *tag: v(?<currentValue>.*)\n"
-      ],
-      "datasourceTemplate": "helm"
-    },
-    // regexManager to read and process github-releases in the ansible directory
-    {
-      "fileMatch": [
-        "ansible/.+\\.ya?ml$"
-      ],
-      "matchStrings": [
-        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)\n.*?_version: \"(?<currentValue>.*)\"\n"
-      ],
-      "datasourceTemplate": "github-releases"
+      "datasourceTemplate": "github-releases",
+      "versioningTemplate": "semver"
     }
   ],
   "packageRules": [
-    // setup datasources
     {
-      "matchDatasources": [
-        "helm"
-      ],
-      "ignoreDeprecated": true
-    },
-    {
-      "matchDatasources": [
-        "docker"
-      ],
-      "commitMessageExtra": "to {{newVersion}}"
-    },
-    // group packages
-    {
-      "matchDatasources": [
-        "helm",
-        "docker"
-      ],
-      "matchPackagePatterns": [
-        "^rook.ceph"
-      ],
-      "groupName": "rook-ceph-suite",
-      "additionalBranchPrefix": "",
-      "separateMinorPatch": true
-    },
-    {
-      "matchDatasources": [
-        "github-tags",
-        "docker"
-      ],
-      "matchPackagePatterns": [
-        "rancher/system-upgrade-controller"
-      ],
-      "groupName": "system-upgrade-controller-suite",
-      "additionalBranchPrefix": "",
-      "separateMinorPatch": true
+      "description": "Use loose versioning for certain dependencies",
+      "matchDatasources": ["docker", "github-releases"],
+      "versioning": "loose",
+      "matchPackageNames": [
+        "ghcr.io/k8s-at-home/plex"
+      ]
     }
   ]
 }

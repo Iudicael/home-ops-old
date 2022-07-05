@@ -4,22 +4,64 @@ version: "3"
 vars:
   PROJECT_DIR:
     sh: "git rev-parse --show-toplevel"
-  CLUSTER_DIR: "{{.PROJECT_DIR}}/cluster"
-  ANSIBLE_DIR: "{{.PROJECT_DIR}}/provision/ansible"
-  TERRAFORM_DIR: "{{.PROJECT_DIR}}/provision/terraform"
+  CLUSTER_DIR: "{{.PROJECT_DIR}}/k8s"
+  ANSIBLE_DIR: "{{.PROJECT_DIR}}/infrastructure/ansible"
+  TERRAFORM_DIR: "{{.PROJECT_DIR}}/infrastructure/cloudflare"
 
 env:
-  KUBECONFIG: "{{.PROJECT_DIR}}/cluster/kubeconfig"
+  KUBECONFIG: "{{.PROJECT_DIR}}/k8s/kubeconfig"
 
 includes:
-  ansible: .taskfiles/ansible.yml
-  flux: .taskfiles/flux.yml
-  format: .taskfiles/format.yml
-  lint: .taskfiles/lint.yml
-  pre-commit: .taskfiles/pre-commit.yml
-  terraform: .taskfiles/terraform.yml
+  ansible: .taskfiles/AnsibleTasks.yml
+  cluster: .taskfiles/ClusterTasks.yml
+  format: .taskfiles/FormatTasks.yml
+  linter: .taskfiles/LintTasks.yml
+  precommit: .taskfiles/PrecommitTasks.yml
+  terraform: .taskfiles/TerraformTasks.yml
 
 tasks:
+
+  init:
+    desc: Initialize workstation dependencies with Brew
+    cmds:
+      - brew install {{.DEPS}} {{.CLI_ARGS}}
+      - task: talhelper
+    preconditions:
+      - sh: command -v brew
+        msg: |
+          Homebrew is not installed. Using MacOS, Linux or WSL?
+          Head over to https://brew.sh to get up and running.
+    vars:
+      DEPS: >-
+        age
+        ansible
+        direnv
+        fluxcd/tap/flux
+        go-task/tap/go-task
+        helm
+        ipcalc
+        jq
+        kubernetes-cli
+        kustomize
+        pre-commit
+        prettier
+        sops
+        stern
+        terraform
+        yamllint
+        yq
+
+  talhelper:
+    desc: Install talhelper
+    cmds:
+      - curl https://i.jpillora.com/budimanjojo/talhelper! | sudo bash
+
+  kubeconfig:
+    desc:
+    cmds:
+      - talosctl kubeconfig "{{.CLUSTER_DIR}}/kubeconfig"
+      - chmod go-r "{{.CLUSTER_DIR}}/kubeconfig"
+
   encrypt:
     desc: Encrypt a file with sops
     cmds:
@@ -33,4 +75,4 @@ tasks:
   pwgen:
     desc: Generate random password
     cmds:
-      - openssl rand -base64 32
+      - openssl rand {{.CLI_ARGS | default "-base64 32" }}

@@ -1,21 +1,27 @@
 {
     "files.associations": {
         "*.json5": "jsonc",
-        "**/provision/ansible/**/*.yml": "ansible",
-        "**/provision/ansible/**/*.sops.yml": "yaml",
-        "**/provision/ansible/**/inventory/**/*.yml": "yaml",
-        "**/provision/terraform/**/*.tf": "terraform"
+        "**/infrastructure/ansible/**/*.yml": "ansible",
+        "**/infrastructure/ansible/**/*.sops.yml": "yaml",
+        "**/infrastructure/ansible/**/inventory/**/*.yml": "yaml",
+        "**/infrastructure/cloudflare/*.tf": "terraform"
     },
     "material-icon-theme.folders.associations": {
         ".taskfiles": "utils",
-        "cluster": "kubernetes"
+        "infrastructure": "config",
+        "cloudflare": "terraform"
     },
     "prettier.configPath": ".github/lint/.prettierrc.yaml",
     "prettier.ignorePath": ".github/lint/.prettierignore",
     "yaml.schemas": {
-        "Kubernetes": "cluster/*.yaml",
+        "Kubernetes": "k8s/*.yaml",
         "https://json.schemastore.org/taskfile.json": [
-            ".taskfiles/*",
+            ".taskfiles/*"
+        ],
+        "https://json.schemastore.org/traefik-v2.json": [
+            "**/traefik/**/*",
+            "!**/traefik/**/kustomization.yaml",
+            "!**/traefik/helm-release.yaml"
         ]
     },
     "editor.fontFamily": "'CaskaydiaCove NF','CaskaydiaCove Nerd Font'",

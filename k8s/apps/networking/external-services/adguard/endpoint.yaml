@@ -1,0 +1,12 @@
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: adguard
+  namespace: networking
+subsets:
+  - addresses:
+      - ip: 192.168.2.21
+    ports:
+      - port: 8080
+        name: http

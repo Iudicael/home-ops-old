@@ -1,0 +1,133 @@
+---
+clusterName: home-cluster
+talosVersion: v1.1.0
+kubernetesVersion: v1.24.2
+endpoint: "https://k8s.${domainName}:6443"
+domain: home-cluster.local
+allowSchedulingOnMasters: true
+clusterPodNets:
+  - 10.244.0.0/16
+  - fd12:3456:789a:244::/56
+clusterSvcNets:
+  - 10.96.0.0/12
+  - fd12:3456:789a:96::/112
+cniConfig:
+  name: custom
+  urls:
+    - https://raw.githubusercontent.com/Iudicael/home-ops/main/infrastructure/talos/cni/install.yaml
+nodes:
+  - hostname: hydra
+    ipAddress: 192.168.2.20
+    controlPlane: true
+    installDisk: /dev/sda
+    nameservers:
+      - 1.1.1.1
+      - 9.9.9.9
+    networkInterfaces:
+      - interface: eth0
+        addresses:
+          - 192.168.2.20/24
+          - ${ipv6Hydra}
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.2.254
+          - network: ::/0
+            gateway: ${ipv6Gateway}
+        mtu: 1500
+        vip:
+          ip: ${clusterEndpointIP}
+controlPlane:
+  inlinePatch:
+    cluster:
+      aescbcEncryptionSecret: ${aescbcEncryptionKey}
+      aggregatorCA:
+        crt: ${k8sAggregatorCert}
+        key: ${k8sAggregatorCertKey}
+      ca:
+        crt: ${clusterCert}
+        key: ${clusterCertKey}
+      apiServer:
+        certSANs:
+          - ${clusterEndpointIP}
+          - k8s.${domainName}
+          - home-cluster.cluster.local
+        extraArgs:
+          feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
+      controllerManager:
+        extraArgs:
+          feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
+      discovery:
+        registries:
+          service:
+            disabled: true
+      etcd:
+        ca:
+          crt: ${etcdCert}
+          key: ${etcdCertKey}
+      extraManifests:
+        - https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.5.1/deploy/standalone-install.yaml
+      proxy:
+        disabled: true
+        extraArgs:
+          feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
+      scheduler:
+        extraArgs:
+          feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
+      secret: ${clusterSecret}
+      serviceAccount:
+        key: ${k8sServiceAccountKey}
+      token: ${clusterToken}
+    machine:
+      ca:
+        crt: ${machineCert}
+        key: ${machineCertKey}
+      certSANs:
+        - ${clusterEndpointIP}
+        - k8s.${domainName}
+        - home-cluster.cluster.local
+      kubelet:
+        extraArgs:
+          feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true
+          rotate-server-certificates: "true"
+      network:
+        extraHostEntries:
+          - ip: ${clusterEndpointIP}
+            aliases:
+              - k8s.${domainName}
+      token: ${machineToken}
+worker:
+  inlinePatch:
+    cluster:
+      aescbcEncryptionSecret: ${aescbcEncryptionKey}
+      ca:
+        crt: ${clusterCert}
+        key: ${clusterCertKey}
+      secret: ${clusterSecret}
+      token: ${clusterToken}
+      discovery:
+        registries:
+          service:
+            disabled: true
+    machine:
+      ca:
+        crt: ${machineCert}
+        key: ${machineCertKey}
+      certSANs:
+        - ${clusterEndpointIP}
+        - k8s.${domainName}
+        - home-cluster.cluster.local
+      extraManifests:
+        - https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/main/deploy/standalone-install.yaml
+      kubelet:
+        extraArgs:
+          rotate-server-certificates: "true"
+          feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
+      network:
+        extraHostEntries:
+          - ip: ${clusterEndpointIP}
+            aliases:
+              - k8s.${domainName}
+      sysctls:
+        fs.inotify.max_user_watches: "1048576"
+        fs.inotify.max_user_instances: "8192"
+      token: ${machineToken}
