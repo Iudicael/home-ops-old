@@ -17,6 +17,7 @@ includes:
   format: .taskfiles/FormatTasks.yml
   linter: .taskfiles/LintTasks.yml
   precommit: .taskfiles/PrecommitTasks.yml
+  sops: .taskfiles/SopsTasks.yml
   terraform: .taskfiles/TerraformTasks.yml
 
 tasks:
@@ -61,16 +62,6 @@ tasks:
     cmds:
       - talosctl kubeconfig "{{.CLUSTER_DIR}}/kubeconfig"
       - chmod go-r "{{.CLUSTER_DIR}}/kubeconfig"
-
-  encrypt:
-    desc: Encrypt a file with sops
-    cmds:
-      - sops --encrypt --in-place {{.CLI_ARGS}}
-
-  decrypt:
-    desc: Decrypt an file that was encrypted with sops
-    cmds:
-      - sops --decrypt --in-place {{.CLI_ARGS}}
 
   pwgen:
     desc: Generate random password
