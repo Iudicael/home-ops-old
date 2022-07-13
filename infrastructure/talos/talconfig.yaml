@@ -34,8 +34,6 @@ nodes:
           - network: ::/0
             gateway: ${ipv6Gateway}
         mtu: 1500
-        vip:
-          ip: ${clusterEndpointIP}
 controlPlane:
   inlinePatch:
     cluster:
