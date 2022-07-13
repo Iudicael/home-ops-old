@@ -45,6 +45,7 @@ controlPlane:
         crt: ${clusterCert}
         key: ${clusterCertKey}
       apiServer:
+        admissionControl: []
         certSANs:
           - ${clusterEndpointIP}
           - k8s.${domainName}
@@ -65,7 +66,6 @@ controlPlane:
       extraManifests:
         - https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.5.1/deploy/standalone-install.yaml
       proxy:
-        disabled: true
         extraArgs:
           feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
       scheduler:
