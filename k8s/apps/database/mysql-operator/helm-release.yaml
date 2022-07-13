@@ -1,0 +1,48 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: mysql-operator
+  namespace: database
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: mysql-operator
+      version: 0.6.2
+      sourceRef:
+        kind: HelmRepository
+        name: bitpoke-charts
+        namespace: flux-system
+  values:
+    replicaCount: 1
+    image:
+      repository: docker.io/bitpoke/mysql-operator
+      pullPolicy: IfNotPresent
+      tag: v0.6.2
+
+    sidecar57:
+      image:
+        repository: docker.io/bitpoke/mysql-operator-sidecar-5.7
+        tag: v0.6.2
+
+    sidecar80:
+      image:
+        repository: docker.io/bitpoke/mysql-operator-sidecar-8.0
+        tag: v0.6.2
+
+    orchestrator:
+      image:
+        repository: docker.io/bitpoke/mysql-operator-orchestrator
+        pullPolicy: IfNotPresent
+        tag: v0.6.2
+
+      topologyUser: orchestrator
+      topologyPassword: ${SECRET_MYSQL_OPERATOR_PASSWORD}
+
+      persistence:
+        enabled: true
+        storageClass: "ceph-block"
+        accessMode: "ReadWriteOnce"
+        size: 1Gi
+        fsGroupWorkaroundEnabled: false

@@ -15,6 +15,9 @@ spec:
         name: authentik-charts
         namespace: flux-system
       interval: 5m
+  dependsOn:
+    - name: kubegres
+      namespace: database
   values:
     image:
       repository: ghcr.io/goauthentik/server
