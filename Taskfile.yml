@@ -60,7 +60,7 @@ tasks:
   kubeconfig:
     desc:
     cmds:
-      - talosctl kubeconfig "{{.CLUSTER_DIR}}/kubeconfig"
+      - talosctl kubeconfig -f "{{.CLUSTER_DIR}}/kubeconfig"
       - chmod go-r "{{.CLUSTER_DIR}}/kubeconfig"
 
   pwgen:
