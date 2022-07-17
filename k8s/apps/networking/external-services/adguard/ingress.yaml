@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/name: *app
     app.kubernetes.io/instance: *app
 spec:
-  ingressClassName: traefik
+  ingressClassName: "nginx"
   rules:
     - host: &host "adguard.${SECRET_DOMAIN}"
       http:
@@ -23,3 +23,4 @@ spec:
   tls:
     - hosts:
         - *host
+      secretName: "${SECRET_DOMAIN/./-}-tls"

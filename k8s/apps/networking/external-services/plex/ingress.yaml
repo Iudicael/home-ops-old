@@ -2,27 +2,27 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: plex
+  name: &app plex
   namespace: networking
   annotations:
     external-dns.alpha.kubernetes.io/target: "dyn.${SECRET_PUBLIC_DOMAIN}"
     external-dns/is-public: "true"
     hajimari.io/enable: "true"
     hajimari.io/icon: "plex"
-    traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
 spec:
-  tls:
-    - hosts:
-        - "plex.${SECRET_DOMAIN}"
-      secretName: "${SECRET_DOMAIN/./-}-tls"
+  ingressClassName: "nginx"
   rules:
-    - host: "plex.${SECRET_DOMAIN}"
+    - host: &host "plex.${SECRET_DOMAIN}"
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: plex
+                name: *app
                 port:
                   number: 32400
+  tls:
+    - hosts:
+        - *host
+      secretName: "${SECRET_DOMAIN/./-}-tls"

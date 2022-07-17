@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: mealie
-      version: 4.1.0
+      version: 5.0.2
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -18,25 +18,31 @@ spec:
   values:
     image:
       repository: hkotel/mealie
-      tag: v0.5.6
+      tag: frontend-v1.0.0beta-3
       pullPolicy: IfNotPresent
 
     env:
       TZ: "${TIMEZONE}"
-      DEFAULT_EMAIL: david@${SECRET_DOMAIN}
-      BASE_URL: https://meals.${SECRET_DOMAIN}
+
+    service:
+      main:
+        ports:
+          http:
+            port: 3000
+          api:
+            enabled: true
+            port: 9000
 
     ingress:
       main:
         enabled: true
-        ingressClassName: "traefik"
+        ingressClassName: "nginx"
         annotations:
           external-dns.alpha.kubernetes.io/target: "dyn.${SECRET_DOMAIN}"
           external-dns/is-public: "true"
           hajimari.io/enable: "true"
           hajimari.io/icon: "food"
           hajimari.io/appName: "Mealie"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         hosts:
           - host: "meals.${SECRET_DOMAIN}"
             paths:
@@ -48,8 +54,25 @@ spec:
               - "meals.${SECRET_DOMAIN}"
 
     persistence:
-      config:
+      api-data:
         enabled: true
+        mountPath: /app/data/
         storageClass: "ceph-block"
         accessMode: ReadWriteOnce
-        size: 5Gi
+        size: 10Gi
+
+    api:
+      image:
+        repository: hkotel/mealie
+        tag: api-v1.0.0beta-2
+        pullPolicy: IfNotPresent
+
+      env:
+        TZ: "${TIMEZONE}"
+        DEFAULT_EMAIL: david@${SECRET_DOMAIN}
+        BASE_URL: https://meals.${SECRET_DOMAIN}
+        ALLOW_SIGNUP: false
+
+      volumeMounts:
+        - name: api-data
+          mountPath: /app/data/

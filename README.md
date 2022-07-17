@@ -18,7 +18,7 @@ _... managed with Flux and Renovate_ :robot:
 <div align="center">
 
 [![discord][discord-shield]][discord-url]
-[![k3s][k3s-shield]][k3s-url]
+[![k8s][k8s-shield]][k8s-url]
 [![pre-commit][pre-commit-shield]][pre-commit-url]
 [![taskfile][taskfile-shield]][taskfile-url]
 [![GitHub Workflow Status][renovate-shield]][renovate-url]
@@ -50,8 +50,8 @@ A lot of inspiration for my cluster came from the people that have shared their 
 [discord-url]: https://discord.gg/k8s-at-home
 [discord-shield]: https://img.shields.io/discord/673534664354430999?style=for-the-badge&label=discord&logo=discord&logoColor=white
 [flux-url]: https://fluxcd.io/
-[k3s-url]: https://k3s.io/
-[k3s-shield]: https://img.shields.io/badge/k3s-v1.23.3-ffc61c?style=for-the-badge&logo=kubernetes&logoColor=white
+[k8s-url]: https://kubernetes.io/
+[k8s-shield]: https://img.shields.io/badge/k8s-v1.24.2-326de6?style=for-the-badge&logo=kubernetes&logoColor=white
 [k8s-at-home-url]: https://k8s-at-home.com/
 [loc-url]: https://github.com/Iudicael/home-ops/graphs/contributors
 [loc-shield]: https://img.shields.io/tokei/lines/github/Iudicael/home-ops?style=for-the-badge&color=brightgreen&label=lines&logo=codefactor&logoColor=white

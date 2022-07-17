@@ -27,15 +27,15 @@ spec:
       enabled: true
     ingress:
       dashboard:
+        ingressClassName: "nginx"
         annotations:
-          kubernetes.io/ingress.class: "traefik"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,${HOME_IPV6_RANGE}"
         host:
-          name: "rook.${SECRET_DOMAIN}"
+          name: &host "rook.${SECRET_DOMAIN}"
           path: "/"
         tls:
           - hosts:
-              - "rook.${SECRET_DOMAIN}"
+              - *host
     cephClusterSpec:
       crashCollector:
         disable: false

@@ -10,6 +10,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
     traefik.ingress.kubernetes.io/router.middlewares: "collab-onlyoffice-full@kubernetescrd"
 spec:
+  ingressClassName: "nginx"
   tls:
     - hosts:
         - "office.${SECRET_DOMAIN}"

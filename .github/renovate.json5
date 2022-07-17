@@ -77,15 +77,5 @@
       "datasourceTemplate": "github-releases",
       "versioningTemplate": "semver"
     }
-  ],
-  "packageRules": [
-    {
-      "description": "Use loose versioning for certain dependencies",
-      "matchDatasources": ["docker", "github-releases"],
-      "versioning": "loose",
-      "matchPackageNames": [
-        "ghcr.io/k8s-at-home/plex"
-      ]
-    }
   ]
 }

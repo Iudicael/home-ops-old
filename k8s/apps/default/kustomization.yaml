@@ -4,4 +4,7 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - echo-server
+  - ghost
   - hajimari
+  - miniflux
+  - wikijs
