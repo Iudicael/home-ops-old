@@ -3,7 +3,6 @@ clusterName: home-cluster
 talosVersion: v1.1.1
 kubernetesVersion: v1.24.2
 endpoint: "https://k8s.${domainName}:6443"
-domain: home-cluster.local
 allowSchedulingOnMasters: true
 clusterPodNets:
   - 10.244.0.0/16
@@ -82,7 +81,6 @@ controlPlane:
       certSANs:
         - ${clusterEndpointIP}
         - k8s.${domainName}
-        - home-cluster.cluster.local
       kubelet:
         extraArgs:
           feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true
@@ -113,7 +111,6 @@ worker:
       certSANs:
         - ${clusterEndpointIP}
         - k8s.${domainName}
-        - home-cluster.cluster.local
       extraManifests:
         - https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/main/deploy/standalone-install.yaml
       kubelet:
