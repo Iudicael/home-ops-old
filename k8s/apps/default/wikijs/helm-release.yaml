@@ -26,7 +26,7 @@ spec:
     env:
       TZ: "Europe/Amsterdam"
       DB_TYPE: postgres
-      DB_HOST: wikijs-postgres.default.svc.cluster.local
+      DB_HOST: wikijs-postgres.default.svc.home-cluster.local
       DB_PORT: 5432
       DB_USER: wikijs
       DB_PASS: ${SECRET_WIKIJS_POSTGRES_PASSWORD}

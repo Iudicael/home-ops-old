@@ -9,27 +9,31 @@ spec:
   chart:
     spec:
       chart: miniflux
-      version: 6.2.0
+      version: 5.0.0
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
         namespace: flux-system
       interval: 5m
+  dependsOn:
+    - name: kubegress
+      namespace: database
   values:
     image:
-      repository: ghcr.io/linuxserver/freshrss
-      tag: version-1.18.1
+      repository: ghcr.io/miniflux/miniflux
+      tag: 2.0.37
       pullPolicy: IfNotPresent
 
     env:
       TZ: "${TIMEZONE}"
+      DATABASE_URL: postgres://miniflux:${SECRET_MINIFLUX_PG_PASSWORD}@miniflux-postgres.default.svc.home-cluster.local/miniflux2?sslmode=disable
+      RUN_MIGRATIONS: '1'
+      CREATE_ADMIN: '1'
+      ADMIN_USERNAME: ${SECRET_MINIFLUX_USER}
+      ADMIN_PASSWORD: ${SECRET_MINIFLUX_PASSWORD}
 
-    persistence:
-      config:
-        enabled: true
-        storageClass: "ceph-block"
-        accessMode: ReadWriteOnce
-        size: 5Gi
+    postgresql:
+      enabled: false
 
     ingress:
       main:
@@ -40,7 +44,7 @@ spec:
           external-dns/is-public: "true"
           hajimari.io/enable: "true"
           hajimari.io/icon: "rss-box"
-          hajimari.io/appName: "FreshRSS"
+          hajimari.io/appName: "Miniflux"
         hosts:
           - host: "rss.${SECRET_DOMAIN}"
             paths:
@@ -50,10 +54,3 @@ spec:
           - secretName: "${SECRET_DOMAIN/./-}-tls"
             hosts:
               - "rss.${SECRET_DOMAIN}"
-
-    resources:
-      requests:
-        cpu: 75m
-        memory: 64Mi
-      limits:
-        memory: 128Mi

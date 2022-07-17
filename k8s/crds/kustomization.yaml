@@ -6,4 +6,3 @@ resources:
   - kube-prometheus-stack
   - node-feature-discovery
   - rook-ceph
-  - traefik
