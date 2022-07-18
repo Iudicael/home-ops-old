@@ -21,7 +21,7 @@ spec:
   values:
     image:
       repository: nextcloud
-      tag: "24.0.2"
+      tag: "24.0.3"
     replicaCount: 1
     ingress:
       enabled: true
