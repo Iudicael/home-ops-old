@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - calico-system
   - collab
+  - database
   - default
   - flux-system
   - home
