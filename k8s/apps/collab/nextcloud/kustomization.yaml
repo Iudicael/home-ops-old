@@ -8,5 +8,4 @@ resources:
   - secret.sops.yaml
   - data-pvc.yaml
   - main-pvc.yaml
-  - middleware.yaml
   - helm-release.yaml
