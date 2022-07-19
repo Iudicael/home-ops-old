@@ -15,9 +15,6 @@ spec:
         name: k8s-at-home-charts
         namespace: flux-system
       interval: 5m
-  dependsOn:
-    - name: kubegres
-      namespace: database
   values:
     image:
       repository: ghcr.io/requarks/wiki
@@ -26,7 +23,7 @@ spec:
     env:
       TZ: "Europe/Amsterdam"
       DB_TYPE: postgres
-      DB_HOST: wikijs-postgres.default.svc.home-cluster.local
+      DB_HOST: wikijs-postgres.default.svc.cluster.local
       DB_PORT: 5432
       DB_USER: wikijs
       DB_PASS: ${SECRET_WIKIJS_POSTGRES_PASSWORD}

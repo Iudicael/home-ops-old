@@ -15,9 +15,6 @@ spec:
         name: nextcloud-charts
         namespace: flux-system
       interval: 5m
-  dependsOn:
-    - name: kubegres
-      namespace: database
   values:
     image:
       repository: nextcloud

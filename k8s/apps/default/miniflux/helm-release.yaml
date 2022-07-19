@@ -14,10 +14,6 @@ spec:
         kind: HelmRepository
         name: k8s-at-home-charts
         namespace: flux-system
-      interval: 5m
-  dependsOn:
-    - name: kubegress
-      namespace: database
   values:
     image:
       repository: ghcr.io/miniflux/miniflux
@@ -26,7 +22,7 @@ spec:
 
     env:
       TZ: "${TIMEZONE}"
-      DATABASE_URL: postgres://miniflux:${SECRET_MINIFLUX_PG_PASSWORD}@miniflux-postgres.default.svc.home-cluster.local/miniflux2?sslmode=disable
+      DATABASE_URL: postgres://miniflux:${SECRET_MINIFLUX_PG_PASSWORD}@miniflux-postgres.default.svc.cluster.local/miniflux2?sslmode=disable
       RUN_MIGRATIONS: '1'
       CREATE_ADMIN: '1'
       ADMIN_USERNAME: ${SECRET_MINIFLUX_USER}
