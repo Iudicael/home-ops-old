@@ -59,7 +59,7 @@ spec:
         config:
           osdsPerDevice: "1"
         nodes:
-          - name: hydra.${SECRET_DOMAIN}
+          - name: hydra
             devices:
               - name: "/dev/disk/by-id/ata-WDC_WD3200BEKT-60PVMT0_WD-WX11A92H6304"
       healthCheck:
