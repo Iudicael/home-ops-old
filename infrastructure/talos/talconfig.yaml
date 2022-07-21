@@ -1,7 +1,7 @@
 ---
 clusterName: home-cluster
 talosVersion: v1.1.1
-kubernetesVersion: v1.24.2
+kubernetesVersion: v1.24.3
 endpoint: "https://k8s.${domainName}:6443"
 allowSchedulingOnMasters: true
 clusterPodNets:
