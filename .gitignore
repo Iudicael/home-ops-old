@@ -8,6 +8,8 @@ kubeconfig*
 # vscode-sops
 .decrypted~*.yaml
 *.agekey
+*.pub
+*.key
 # Ansible
 xanmanning.k3s*
 # Terraform
