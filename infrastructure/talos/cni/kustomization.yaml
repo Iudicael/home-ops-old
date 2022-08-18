@@ -4,7 +4,7 @@ kind: Kustomization
 helmCharts:
   - name: tigera-operator
     repo: https://projectcalico.docs.tigera.io/charts
-    version: v3.23.3
+    version: v3.24.0
     releaseName: tigera-operator
     namespace: tigera-operator
     valuesFile: values.yaml
