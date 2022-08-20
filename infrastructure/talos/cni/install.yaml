@@ -9,7 +9,6 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     name: tigera-operator
   name: tigera-operator
----
 
 ---
 # Source: crds/calico/crd.projectcalico.org_bgpconfigurations.yaml
@@ -6182,12 +6181,12 @@ spec:
         - name: OPERATOR_NAME
           value: tigera-operator
         - name: TIGERA_OPERATOR_INIT_IMAGE_VERSION
-          value: v1.27.7
+          value: v1.28.0
         envFrom:
         - configMapRef:
             name: kubernetes-services-endpoint
             optional: true
-        image: quay.io/tigera/operator:v1.27.7
+        image: quay.io/tigera/operator:v1.28.0
         imagePullPolicy: IfNotPresent
         name: tigera-operator
         volumeMounts:
