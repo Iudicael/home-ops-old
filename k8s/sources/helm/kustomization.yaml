@@ -5,6 +5,7 @@ resources:
   - authentik.yaml
   - bitnami.yaml
   - bitpoke.yaml
+  - bjw-s.yaml
   - descheduler.yaml
   - emberstack.yaml
   - external-dns.yaml

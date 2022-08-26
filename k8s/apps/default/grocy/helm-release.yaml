@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: ghost
+  name: grocy
   namespace: default
 spec:
   interval: 5m
@@ -16,25 +16,14 @@ spec:
         namespace: flux-system
   values:
     image:
-      repository: ghost
-      tag: 5.11.0
+      repository: linuxserver/grocy
+      tag: version-v3.1.2
       pullPolicy: IfNotPresent
 
     env:
-      url: "https://blog.${SECRET_DOMAIN}"
-      database__client: mysql
-      database__connection__host: ghost-cluster-mysql-master.default.svc.home-cluster.local
-      database__connection__user: ghost
-      database__connection__password: ${SECRET_GHOST_MYSQL_PASSWORD}
-      database__connection__database: ghost
-      NODE_ENV: production
-
-    persistence:
-      content:
-        enabled: true
-        storageClass: "ceph-block"
-        accessMode: ReadWriteOnce
-        size: 1Gi
+      TZ: "${TIMEZONE}"
+      GROCY_CULTURE: "nl"
+      GROCY_CURRENCY: "EUR"
 
     ingress:
       main:
@@ -44,14 +33,21 @@ spec:
           external-dns.alpha.kubernetes.io/target: "dyn.${SECRET_DOMAIN}"
           external-dns/is-public: "true"
           hajimari.io/enable: "true"
-          hajimari.io/icon: "ghost"
-          hajimari.io/appName: "Ghost"
+          hajimari.io/icon: "cart-variant"
+          hajimari.io/appName: "Grocy"
         hosts:
-          - host: "blog.${SECRET_DOMAIN}"
+          - host: "grocy.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - secretName: "${SECRET_DOMAIN/./-}-tls"
             hosts:
-              - "blog.${SECRET_DOMAIN}"
+              - "grocy.${SECRET_DOMAIN}"
+
+    persistence:
+      config:
+        enabled: true
+        storageClass: "ceph-block"
+        accessMode: ReadWriteOnce
+        size: 5Gi

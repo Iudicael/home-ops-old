@@ -1,0 +1,75 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: vaultwarden
+  namespace: default
+spec:
+  releaseName: vaultwarden
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 0.1.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  values:
+    image:
+      repository: ghcr.io/k8s-at-home/vaultwarden
+      tag: v1.25.2
+    env:
+      DATA_FOLDER: "config"
+      DOMAIN: https://vault.${SECRET_DOMAIN}
+      SIGNUPS_ALLOWED: "false"
+      SMTP_FROM_NAME: Vaultwarden
+      SMTP_HOST: ${SECRET_SMTP_HOST}
+      SMTP_PORT: 587
+      SMTP_SSL: "true"
+      TZ: ${TIMEZONE}
+      WEBSOCKET_ADDRESS: 0.0.0.0
+      WEBSOCKET_ENABLED: true
+      WEBSOCKET_PORT: 3012
+    envFrom:
+      - secretRef:
+          name: vaultwarden-secrets
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "nginx"
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "dyn.${SECRET_DOMAIN}"
+          external-dns/is-public: "true"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "shield-key"
+        hosts:
+          - host: "vault.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+              - path: /notifications/hub/negotiate
+                pathType: Prefix
+              - path: /notifications/hub
+                pathType: Prefix
+                servicePort: 3012
+        tls:
+          - hosts:
+              - "vault.${SECRET_DOMAIN}"
+      admin:
+        enabled: true
+        ingressClassName: "traefik"
+        annotations:
+          nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,${HOME_IPV6_RANGE}"
+        hosts:
+          - host: "vault.${SECRET_DOMAIN}"
+            paths:
+              - path: /admin
+                pathType: Prefix
+        tls:
+          - hosts:
+              - "vault.${SECRET_DOMAIN}"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: vaultwarden-config
