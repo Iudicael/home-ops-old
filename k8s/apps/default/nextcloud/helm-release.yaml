@@ -15,6 +15,9 @@ spec:
         name: nextcloud-charts
         namespace: flux-system
       interval: 5m
+  dependsOn:
+    - name: cloudnative-pg
+      namespace: default
   values:
     image:
       repository: nextcloud
