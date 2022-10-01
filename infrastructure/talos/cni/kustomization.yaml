@@ -2,14 +2,14 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 helmCharts:
-  - name: tigera-operator
-    repo: https://projectcalico.docs.tigera.io/charts
-    version: v3.24.1
-    releaseName: tigera-operator
-    namespace: tigera-operator
+  - name: cilium
+    repo: https://helm.cilium.io/
+    version: 1.12.2
+    releaseName: cilium
+    namespace: kube-system
     valuesFile: values.yaml
 commonAnnotations:
-  meta.helm.sh/release-name: tigera-operator
-  meta.helm.sh/release-namespace: tigera-operator
+  meta.helm.sh/release-name: cilium
+  meta.helm.sh/release-namespace: kube-system
 commonLabels:
   app.kubernetes.io/managed-by: Helm

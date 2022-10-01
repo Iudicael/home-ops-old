@@ -9,12 +9,14 @@ resources:
   - descheduler.yaml
   - emberstack.yaml
   - external-dns.yaml
+  - gitea.yaml
   - hajimari.yaml
   - infracloudio.yaml
   - ingress-nginx.yaml
   - jetstack.yaml
   - k8s-at-home.yaml
   - k8s-gateway.yaml
+  - kyverno.yaml
   - metallb.yaml
   - metrics-server.yaml
   - nextcloud.yaml

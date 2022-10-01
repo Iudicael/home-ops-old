@@ -1,20 +1,34 @@
 ---
-installation:
+autoDirectNodeRoutes: true
+bgp:
+  enabled: false
+containerRuntime:
+  integration: containerd
+endpointRoutes:
   enabled: true
-  calicoNetwork:
-    ipPools:
-      - blockSize: 26
-        cidr: "10.244.0.0/16"
-        encapsulation: "None"
-        natOutgoing: Enabled
-        nodeSelector: all()
-      - blockSize: 120
-        cidr: "fd12:3456:789a:244::/56"
-        encapsulation: "None"
-        natOutgoing: Enabled
-        nodeSelector: all()
-  nodeMetricsPort: 9091
-  typhaMetricsPort: 9093
-
-apiServer:
-  enabled: true
+hubble:
+  enabled: false
+ipam:
+  mode: kubernetes
+  operator:
+    clusterPoolIPv4PodCIDRList: 10.244.0.0/16
+    clusterPoolIPv6PodCIDRList: fd12:3456:789a:244::/96
+    clusterPoolIPv4MaskSize: 24
+    clusterPoolIPv6MaskSize: 112
+bpf:
+  masquerade: true
+enableIPv6Masquerade: true
+ipv4NativeRoutingCIDR: 10.244.0.0/16
+k8sServiceHost: 192.168.2.20
+k8sServicePort: 6443
+kubeProxyReplacement: strict
+loadBalancer:
+  algorithm: maglev
+  mode: dsr
+localRedirectPolicy: true
+operator:
+  rollOutPods: true
+rollOutCiliumPods: true
+securityContext:
+  privileged: true
+tunnel: disabled

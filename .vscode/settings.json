@@ -18,11 +18,6 @@
         "Kubernetes": "k8s/*.yaml",
         "https://json.schemastore.org/taskfile.json": [
             ".taskfiles/*"
-        ],
-        "https://json.schemastore.org/traefik-v2.json": [
-            "**/traefik/**/*",
-            "!**/traefik/**/kustomization.yaml",
-            "!**/traefik/helm-release.yaml"
         ]
     },
     "editor.fontFamily": "'CaskaydiaCove NF','CaskaydiaCove Nerd Font'",

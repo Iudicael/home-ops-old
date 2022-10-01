@@ -1,0 +1,15 @@
+---
+apiVersion: mysql.presslabs.org/v1alpha1
+kind: MysqlCluster
+metadata:
+  name: &app ghost
+  namespace: default
+spec:
+  replicas: 1
+  secretName: *app
+  volumeSpec:
+    persistentVolumeClaim:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 1Gi
