@@ -19,7 +19,7 @@ spec:
     image:
       repository: docker.io/bitpoke/mysql-operator
       pullPolicy: IfNotPresent
-      tag: v0.6.2
+      tag: v0.6.3
 
     sidecar57:
       image:
