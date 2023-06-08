@@ -24,7 +24,7 @@ spec:
     sidecar57:
       image:
         repository: docker.io/bitpoke/mysql-operator-sidecar-5.7
-        tag: v0.6.2
+        tag: 0.7.0
 
     sidecar80:
       image:
