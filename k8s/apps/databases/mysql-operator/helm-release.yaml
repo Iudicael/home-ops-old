@@ -29,7 +29,7 @@ spec:
     sidecar80:
       image:
         repository: docker.io/bitpoke/mysql-operator-sidecar-8.0
-        tag: v0.6.2
+        tag: 0.7.0
 
     orchestrator:
       image:
